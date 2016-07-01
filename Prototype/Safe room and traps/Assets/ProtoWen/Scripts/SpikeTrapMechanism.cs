@@ -6,9 +6,14 @@ public class SpikeTrapMechanism : MonoBehaviour
 
     #region Public & Protected Members
 
-    [Range(2f,15f)]
+
+    public bool isWorking ;
+
+    // [Range(2f,15f)]
+    [HideInInspector]
     public float m_spikeInTimer;
-    [Range(.5f,3f)]
+    //[Range(.5f,3f)]
+    [HideInInspector]
     public float m_spikeOutTimer;
 
     [HideInInspector]
@@ -16,7 +21,7 @@ public class SpikeTrapMechanism : MonoBehaviour
     [HideInInspector]
     public GameObject m_spike;
     // public bool m_isTrigger;
-        
+
 
     #endregion
 
@@ -26,26 +31,31 @@ public class SpikeTrapMechanism : MonoBehaviour
     {
         m_currentTimer = 0;
 
-     
+        m_spikeInTimer = Random.Range( 2f, 15f );
+        m_spikeOutTimer = Random.Range( .5f, 3f );
+
+
     }
 
     void Update()
     {
+        if( isWorking )
+        {
+            if( m_currentTimer >= m_spikeInTimer + m_spikeOutTimer )
+            {
+                m_currentTimer = 0;
+                m_spike.SetActive( false );
+            }
+            else if( m_currentTimer >= m_spikeInTimer )
+            {
 
-        if( m_currentTimer >= m_spikeInTimer + m_spikeOutTimer )
-        {
-            m_currentTimer = 0;
-            m_spike.SetActive( false );
-        }
-        else if(m_currentTimer >= m_spikeInTimer )
-        {
-   
-            m_spike.SetActive( true );
-        }
-        
+                m_spike.SetActive( true );
+            }
+
             m_currentTimer += Time.deltaTime;
-        
+
         }
+    }
 
 
     #endregion
