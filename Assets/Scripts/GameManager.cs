@@ -8,17 +8,21 @@ public class GameManager : MonoBehaviour
     public int objective;
     public bool m_PlayerIsAlive;
     public FPSController playerFPS;
+    public static bool IsGameOver;
     #endregion
 
     #region Main Methods
 
     public static void GameOver()
     {
+        IsGameOver = true;
         //launch end scene;
         Debug.Log( "GameOver" );
     }
     void Start()
     {
+        IsGameOver = false;
+
         objective = Random.Range( 0, 1 );
         StartCoroutine( But() );
 

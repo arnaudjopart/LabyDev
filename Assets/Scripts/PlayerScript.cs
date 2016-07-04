@@ -35,14 +35,26 @@ class PlayerScript : NetworkBehaviour
     {
 	    if ( m_state == PlayerType.FpsLocal )
         {
-            m_posPlayerFps = m_playerTransform.position;
-            m_rotatePlayerFps = m_playerTransform.rotation;
+            if( GameManager.IsGameOver )
+                Destroy( m_player );
+
+            if ( !GameManager.IsGameOver )
+            {
+                m_posPlayerFps = m_playerTransform.position;
+                m_rotatePlayerFps = m_playerTransform.rotation;
+            }
         }
         else
         if ( m_state == PlayerType.FpsDistant )
         {
-            m_playerTransform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z); //100 = hauteur icone
-            m_playerTransform.rotation = m_rotatePlayerFps;
+            if( GameManager.IsGameOver )
+                Destroy( m_player );
+
+            if( !GameManager.IsGameOver )
+            {
+                m_playerTransform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z ); //100 = hauteur icone
+                m_playerTransform.rotation = m_rotatePlayerFps;
+            }
         }
         else
         if ( m_state == PlayerType.MapLocal )
