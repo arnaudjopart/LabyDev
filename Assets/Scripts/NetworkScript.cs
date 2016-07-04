@@ -54,7 +54,13 @@ class NetworkScript : NetworkBehaviour
             SceneManager.LoadScene( 0 );
         }
 
+        if (GameManager.IsGameOver)
+        {
+            Destroy( this.gameObject );
+            SceneManager.LoadScene( 0 );
 
+            GameManager.IsGameOver = false;
+        }
     }
 
     public void LoadingWait()
