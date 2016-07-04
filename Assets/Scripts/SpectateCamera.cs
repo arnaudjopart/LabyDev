@@ -19,12 +19,16 @@ public class SpectateCamera: MonoBehaviour
     [Header("Mouse")]
     public float m_speedMouse = 1;
     public float m_SpeedscrollMouse = 1;
+
+
+    [HideInInspector]
+    public Camera m_cam;
     #endregion
 
     #region Main Methods
     void Start()
     {
-        m_camera = GetComponent<Camera>();
+        m_camera = m_cam.GetComponent<Camera>();
         m_defaultPosition = m_camera.transform.position;
         m_position = m_camera.transform.position;
         m_sizeCam = m_camera.orthographicSize;
