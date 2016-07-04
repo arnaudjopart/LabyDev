@@ -14,7 +14,10 @@ public class KillPlayer : MonoBehaviour {
     
     // TODO 
     // Kill the player on collide
-
+    void OnTriggerEnter(Collider _other)
+    {
+        Destroy( _other.gameObject );
+    }
     #endregion
 
 

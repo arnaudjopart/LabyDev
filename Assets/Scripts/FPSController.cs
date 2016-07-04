@@ -13,66 +13,125 @@ public class FPSController : MonoBehaviour
     public float maximumY = 60F;
 
     public float rotationY = 0F;
-    public float rotationX = 0F;
+
     public GameObject m_cibleTop;
     public GameObject m_cibleRight;
-    public GameObject m_spot;
+    public Light m_spot;
 
     public Transform m_player;
     public Rigidbody m_rb;
     public Camera m_camera;
-    public float jumpMagnitude=2f;
 
     public RaycastHit m_raycast;
+
+    public float m_time;
+    public bool m_canFlash;
+    public bool m_waitCoroutine;
+
+    public bool m_isAlive;
+
+    public float m_speed;
+
     #endregion
-    
+
+
+
     #region Main Methods
     void Start()
     {
+        m_time = 240;
+        m_canFlash = true;
+        m_waitCoroutine = false;
+        m_isAlive = true;
 
     }
 
     void Update()
     {
+
+        Debug.Log( m_time );
+        Debug.Log( m_spot.intensity );
+        m_time -= Time.deltaTime;
+
+        if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
+        {
+            StartCoroutine( Flash() );
+            m_canFlash = false;
+
+        }
+
+        if ( m_canFlash == false && m_waitCoroutine == false )
+        {
+            m_waitCoroutine = true;
+            StartCoroutine( Wait() );
+        }
+
+
+
+        m_spot.intensity = m_time / 30;
         //Sert à faire pointer la torche là où le joueur regarde
         RaycastHit hit;
-        if (Physics.Raycast(m_camera.transform.position, m_camera.transform.TransformDirection(Vector3.forward), out hit))
+        if ( Physics.Raycast( m_camera.transform.position, m_camera.transform.TransformDirection( Vector3.forward ), out hit ) )
         {
             m_spot.transform.LookAt( hit.point );
         }
-        
+
+
         //Fait tourner le joueur et la camera
         transform.Rotate( 0, Input.GetAxis( "Mouse X" ) * sensitivityX, 0 );
         rotationY += Input.GetAxis( "Mouse Y" ) * sensitivityY;
         rotationY = Mathf.Clamp( rotationY, minimumY, maximumY );
         m_camera.transform.localEulerAngles = new Vector3( -rotationY, 0, 0 );
-        
-        if( Input.GetKey( "space" ) )
+
+        if ( Input.GetKey( "up" ) )
         {
-            m_rb.AddForce( new Vector3( 0, jumpMagnitude, 0 ) );
-        }
-        
-        if( Input.GetKey( "up" ) )
-        {
-            transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x / 10, 0, m_cibleTop.transform.localPosition.z / 10 ) );
+            transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed*Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
         }
 
-        if( Input.GetKey( "right" ) )
+        if ( Input.GetKey( "right" ) )
         {
-            transform.Translate( new Vector3( m_cibleRight.transform.localPosition.x / 10, 0, m_cibleRight.transform.localPosition.z / 10 ) );
+            transform.Translate( new Vector3( m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime ) );
         }
 
-        if( Input.GetKey( "left" ) )
+        if ( Input.GetKey( "left" ) )
         {
-            transform.Translate( new Vector3( (m_cibleRight.transform.localPosition.x / 10) * -1, 0, (m_cibleRight.transform.localPosition.z / 10) * -1 ) );
+            transform.Translate( new Vector3( (m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
         }
 
-        if( Input.GetKey( "down" ) )
+        if ( Input.GetKey( "down" ) )
         {
 
-            transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x / 10) * -1, 0, (m_cibleTop.transform.localPosition.z / 10) * -1 ) );
+            transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
         }
+
     }
+
+    #endregion
+
+    #region Utils
+    IEnumerator Flash()
+    {
+        m_spot.intensity = 0;
+        yield return new WaitForSeconds( 0.1f );
+        m_spot.intensity = m_time / 30;
+        yield return new WaitForSeconds( 0.1f );
+        m_spot.intensity = 0;
+        yield return new WaitForSeconds( 0.1f );
+        m_spot.intensity = m_time / 30;
+        m_spot.intensity = 0;
+        yield return new WaitForSeconds( 0.1f );
+        StopCoroutine( Flash() );
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds( 2f );
+
+        m_canFlash = true;
+        m_waitCoroutine = false;
+        StopCoroutine( Wait() );
+    }
+
     #endregion
 }
 

@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class InitiateMapManager : MonoBehaviour {
     #region Public and Protected Members
-
+    public int m_mapWidth = 8;
+    public int m_mapHeigt = 4;
     #endregion
 
     #region Main Methods
@@ -112,8 +113,7 @@ public class InitiateMapManager : MonoBehaviour {
     // ---------------------------------
     private const int m_nbSafeRoom = 2;
     private const int m_nbDangerRoom = 10;
-    private const int m_mapWidth = 8;
-    private const int m_mapHeigt = 4;
+    
 
     #endregion
 

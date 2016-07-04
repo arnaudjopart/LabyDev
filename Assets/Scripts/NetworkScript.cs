@@ -17,6 +17,7 @@ class NetworkScript : NetworkBehaviour
         }
         else
         {
+            m_networkManager.networkAddress = Global.Ip;
             m_ConnectedMsg.text = "Try to connect to : " + Global.Ip;
             Debug.Log( m_ConnectedMsg.text );
         }
