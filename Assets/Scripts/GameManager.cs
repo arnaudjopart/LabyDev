@@ -7,15 +7,22 @@ public class GameManager : MonoBehaviour
     // 0 = méchant, 1 = gentil
     public int objective;
     public bool m_PlayerIsAlive;
+    public FPSController playerFPS;
     #endregion
 
     #region Main Methods
+
+    public static void GameOver()
+    {
+        //launch end scene;
+        Debug.Log( "GameOver" );
+    }
     void Start()
     {
         objective = Random.Range( 0, 1 );
         StartCoroutine( But() );
 
-        //m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
+        m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
 
     }
     void Update()

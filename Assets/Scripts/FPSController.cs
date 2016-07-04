@@ -49,8 +49,8 @@ public class FPSController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log( m_time );
-        Debug.Log( m_spot.intensity );
+        //Debug.Log( m_time );
+        //Debug.Log( m_spot.intensity );
         m_time -= Time.deltaTime;
 
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
@@ -103,7 +103,6 @@ public class FPSController : MonoBehaviour
 
             transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
         }
-
 
     }
 

@@ -17,6 +17,7 @@ public class KillPlayer : MonoBehaviour {
     void OnTriggerEnter(Collider _other)
     {
         Destroy( _other.gameObject );
+        GameManager.GameOver();
     }
     #endregion
 
