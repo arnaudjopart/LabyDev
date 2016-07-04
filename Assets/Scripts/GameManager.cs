@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         objective = Random.Range( 0, 1 );
         StartCoroutine( But() );
 
-        m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
+        //m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
 
     }
     void Update()

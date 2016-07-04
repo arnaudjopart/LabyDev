@@ -56,6 +56,9 @@ public class InitiateMapManager : MonoBehaviour {
         // Start Room
         tmpIdx = Random.Range( 0, idxCornerMap.Count );
         m_rooms[ idxCornerMap[tmpIdx] ].RoomType = TypeRoom.startRoom;
+        Vector3 spawnPosition = m_rooms[ idxCornerMap[ tmpIdx ]].Transform.position;
+        spawnPosition.Set( spawnPosition.x, spawnPosition.y + 2, spawnPosition.z );
+        Global.playerSpawnPosition = spawnPosition; 
         idxToDistribute[idxCornerMap [tmpIdx] ] = -1;
         idxCornerMap[tmpIdx ] = -1;
 

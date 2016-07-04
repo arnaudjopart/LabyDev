@@ -77,7 +77,7 @@ class PlayerScript : NetworkBehaviour
 
             this.name = "Fps Player (Local)";
 
-            m_player = (GameObject)Instantiate( m_fpsPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
+            m_player = (GameObject)Instantiate( m_fpsPlayerPrefab, Global.playerSpawnPosition, Quaternion.identity );
             m_playerTransform = m_player.GetComponent<Transform>();
 
             m_playerTransform.parent = this.transform;
