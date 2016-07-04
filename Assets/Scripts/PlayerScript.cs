@@ -35,15 +35,14 @@ class PlayerScript : NetworkBehaviour
     {
 	    if ( m_state == PlayerType.FpsLocal )
         {
-            //m_transform.Translate( new Vector3( Input.GetAxis( "Horizontal" ) * 0.1f, 0, Input.GetAxis( "Vertical" ) * 0.1f ) );
-            m_posPlayerFps = m_player.transform.position;
-            m_rotatePlayerFps = m_player.transform.rotation;
+            m_posPlayerFps = m_playerTransform.position;
+            m_rotatePlayerFps = m_playerTransform.rotation;
         }
         else
         if ( m_state == PlayerType.FpsDistant )
         {
-            m_player.transform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z); //100 = hauteur icone
-            m_player.transform.rotation = m_rotatePlayerFps;
+            m_playerTransform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z); //100 = hauteur icone
+            m_playerTransform.rotation = m_rotatePlayerFps;
         }
         else
         if ( m_state == PlayerType.MapLocal )
@@ -67,9 +66,9 @@ class PlayerScript : NetworkBehaviour
             this.name = "Fps Player (Local)";
 
             m_player = (GameObject)Instantiate( m_fpsPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
-            m_player.transform.parent = this.transform;
+            m_playerTransform = m_player.GetComponent<Transform>();
 
-            //Camera.main.transform.parent = m_player.transform;
+            m_playerTransform.parent = this.transform;
         }
         else
         if( m_state == PlayerType.MapLocal )
@@ -77,10 +76,9 @@ class PlayerScript : NetworkBehaviour
             this.name = "Map Player (Local)";
 
             m_player = (GameObject)Instantiate( m_mapPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
-            m_player.transform.parent = this.transform;
+            m_playerTransform = m_player.GetComponent<Transform>();
 
-            //Camera.main.transform.position = new Vector3( 0, 50, 0 );
-            //Camera.main.transform.eulerAngles = new Vector3( 90, 0, 0 );
+            m_playerTransform.parent = this.transform;
         }
         else
         if( m_state == PlayerType.FpsDistant )
@@ -88,7 +86,9 @@ class PlayerScript : NetworkBehaviour
             this.name = "Fps Player (Distant)";
 
             m_player = (GameObject)Instantiate( m_fpsDistantPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
-            m_player.transform.parent = this.transform;
+            m_playerTransform = m_player.GetComponent<Transform>();
+
+            m_playerTransform.parent = this.transform;
         }
         else
         {
@@ -99,6 +99,7 @@ class PlayerScript : NetworkBehaviour
 
     #region Private Var
     private GameObject m_player;
+    private Transform m_playerTransform;
     private Transform m_transform;
 
     private enum PlayerType { FpsLocal, FpsDistant, MapLocal, Empty };
