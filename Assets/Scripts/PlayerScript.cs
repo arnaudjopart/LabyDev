@@ -6,6 +6,8 @@ class PlayerScript : NetworkBehaviour
 {
     [SyncVar]
     public Vector3 m_posPlayerFps;
+    [SyncVar]
+    public Quaternion m_rotatePlayerFps;
 
     public GameObject m_fpsPlayerPrefab;
     public GameObject m_fpsDistantPlayerPrefab;
@@ -35,11 +37,13 @@ class PlayerScript : NetworkBehaviour
         {
             //m_transform.Translate( new Vector3( Input.GetAxis( "Horizontal" ) * 0.1f, 0, Input.GetAxis( "Vertical" ) * 0.1f ) );
             m_posPlayerFps = m_player.transform.position;
+            m_rotatePlayerFps = m_player.transform.rotation;
         }
         else
         if ( m_state == PlayerType.FpsDistant )
         {
             m_player.transform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z); //100 = hauteur icone
+            m_player.transform.rotation = m_rotatePlayerFps;
         }
         else
         if ( m_state == PlayerType.MapLocal )

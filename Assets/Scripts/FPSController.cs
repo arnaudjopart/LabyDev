@@ -104,6 +104,7 @@ public class FPSController : MonoBehaviour
             transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
         }
 
+
     }
 
     #endregion
