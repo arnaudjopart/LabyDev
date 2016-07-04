@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public int objective;
     public bool m_PlayerIsAlive;
     public FPSController playerFPS;
-    public static bool IsGameOver;
+    public static bool IsGameOver = false;
     #endregion
 
     #region Main Methods

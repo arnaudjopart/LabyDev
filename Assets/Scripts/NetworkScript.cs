@@ -50,9 +50,11 @@ class NetworkScript : NetworkBehaviour
         {
             //TimeOut (Marche Poa :/)
             Debug.Log( "TimeOut !" );
+            Destroy( this.gameObject );
             SceneManager.LoadScene( 0 );
-            Destroy( this );
         }
+
+
     }
 
     public void LoadingWait()
