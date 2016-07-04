@@ -39,7 +39,7 @@ class PlayerScript : NetworkBehaviour
         else
         if ( m_state == PlayerType.FpsDistant )
         {
-            m_player.transform.position = m_posPlayerFps;
+            m_player.transform.position = new Vector3( m_posPlayerFps.x, 100, m_posPlayerFps.z); //100 = hauteur icone
         }
         else
         if ( m_state == PlayerType.MapLocal )
@@ -86,6 +86,10 @@ class PlayerScript : NetworkBehaviour
             m_player = (GameObject)Instantiate( m_fpsDistantPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
             m_player.transform.parent = this.transform;
         }
+        else
+        {
+            m_state = PlayerType.Empty;
+        }
     }
     #endregion
 
@@ -93,7 +97,7 @@ class PlayerScript : NetworkBehaviour
     private GameObject m_player;
     private Transform m_transform;
 
-    private enum PlayerType { FpsLocal, FpsDistant, MapLocal };
+    private enum PlayerType { FpsLocal, FpsDistant, MapLocal, Empty };
     private PlayerType m_state;
     #endregion
 }
