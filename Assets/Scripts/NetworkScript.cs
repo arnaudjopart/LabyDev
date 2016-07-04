@@ -12,7 +12,7 @@ class NetworkScript : NetworkBehaviour
     {
 	    if (Global.Server)
         {
-            m_ConnectedMsg.text = "Start Server ...";
+            m_ConnectedMsg.text = "Start Server ... " + m_networkManager.networkAddress;
             Debug.Log( m_ConnectedMsg.text );
         }
         else
@@ -50,22 +50,27 @@ class NetworkScript : NetworkBehaviour
         {
             //TimeOut (Marche Poa :/)
             Debug.Log( "TimeOut !" );
-            Destroy( this.gameObject );
-            SceneManager.LoadScene( 0 );
+            ResetNetwork();
         }
 
         if (GameManager.IsGameOver)
         {
-            Destroy( this.gameObject );
-            SceneManager.LoadScene( 0 );
-
             GameManager.IsGameOver = false;
+            ResetNetwork();
         }
     }
 
     public void LoadingWait()
     {
         
+    }
+
+    public void ResetNetwork()
+    {
+        Global.PlayerSpawned = false;
+        m_networkManager.StopHost();
+        Destroy( this.gameObject );
+        SceneManager.LoadScene( 0 );
     }
     
     private bool m_Connecting = true;

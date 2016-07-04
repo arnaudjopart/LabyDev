@@ -31,8 +31,10 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if ( !m_PlayerIsAlive )
+        if ( m_PlayerIsAlive )
         {
+            m_PlayerIsAlive = false;
+            IsGameOver = true;
             //Application.LoadLevel();
         }
     }
