@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonScripts : MonoBehaviour
 {
     public int buttonId;
+    public InputField m_IpEntry;
 
 	void Start ()
     {
@@ -23,6 +24,10 @@ public class ButtonScripts : MonoBehaviour
         if( buttonId == 1 )
         {
             Global.Server = false;
+
+            if( m_IpEntry.text != "" )
+                Global.Ip = m_IpEntry.text;
+
             SceneManager.LoadScene( 1 );
         }
     }
