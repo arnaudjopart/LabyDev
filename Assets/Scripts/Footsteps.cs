@@ -4,12 +4,8 @@ using System.Collections;
 public class Footsteps : MonoBehaviour {
 
 
-    #region Public and Protected Members
-    public Vector3 pos;
-    public bool inputBool;
-    public int i;
-    public AudioClip m_step;
-    public AudioClip m_step1;
+    #region Public and Protected Members 
+    public AudioClip m_steps;
     #endregion
 
     #region Main Methdos
@@ -17,13 +13,12 @@ public class Footsteps : MonoBehaviour {
     {
         var audioSources = gameObject.GetComponents<AudioSource>();
         m_Audio= audioSources[ 0 ];
-        m_Audio1 = audioSources[ 1 ];
         m_playerPos = gameObject.GetComponent<Transform>();
     }
 
     void Start()
     {
-        StartCoroutine( PlayFootstep() );
+ 
         playSteps = true;
         pos = new Vector3( m_playerPos.position.x, m_playerPos.position.y, m_playerPos.position.z );
     }
@@ -31,18 +26,21 @@ public class Footsteps : MonoBehaviour {
     void Update()
     {
         pos = m_playerPos.position;
-        inputBool =!playSteps && (Input.GetKey( "up" ) || Input.GetKey( "down" ) || Input.GetKey( "left" ) ||Input.GetKey( "right" ));
+        isGetKeyDown =!playSteps && (Input.GetKeyDown( "up" ) || Input.GetKeyDown( "down" ) || Input.GetKeyDown( "left" ) ||Input.GetKeyDown( "right" ));
+        isKeyAllDirections=Input.GetKeyUp( "up" )||Input.GetKeyUp( "down" )||Input.GetKeyUp( "left" )||Input.GetKeyUp( "right" );
 
+        if( isKeyAllDirections )
+         m_Audio.Pause();
+       
+           
 
         if( playSteps )
         {
             playSteps = false;
             StopCoroutine( PlayFootstep() );
-        }
-        else if( inputBool )
+        } 
+        else if( isGetKeyDown )
         {
-            i++;
-            pos = m_playerPos.position;
             StartCoroutine( PlayFootstep() );
         }
 
@@ -52,27 +50,21 @@ public class Footsteps : MonoBehaviour {
     #region Utils
     IEnumerator PlayFootstep()
     {
-
-        yield return new WaitForSeconds( 0.1f );
-
-        if( i%2 == 0 )
-        {
-            if( !m_Audio.isPlaying &&   !m_Audio1.isPlaying )
-                m_Audio.PlayOneShot( m_step );
-        }
-        else
-        {
-            if( !m_Audio1.isPlaying &&  !m_Audio.isPlaying )
-                m_Audio1.PlayOneShot( m_step1 );
-        }
+            
+                yield return new WaitForSeconds( 0.4f );
+                if(!m_Audio.isPlaying)
+                    m_Audio.PlayOneShot( m_steps );
+              
     }
     #endregion
 
     #region Private Members
     private AudioSource m_Audio;
-    private AudioSource m_Audio1;
+    private Vector3 pos;
     private Transform m_playerPos;
     private bool playSteps;
+    private bool isGetKeyDown;
+    private bool isKeyAllDirections;
     #endregion
 
 }
