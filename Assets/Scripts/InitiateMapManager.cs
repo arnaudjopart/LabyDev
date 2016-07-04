@@ -15,7 +15,6 @@ public class InitiateMapManager : MonoBehaviour {
         {
             m_rooms.Add( new Room(item, item.GetComponent<MeshRenderer>(), item.name ));
         }
-        //debugInfoRoom();
         InitiateMap();
     }
 
@@ -28,11 +27,31 @@ public class InitiateMapManager : MonoBehaviour {
 
     #region Utils
     private void debugInfoRoom() {
-        foreach( var item in m_rooms )
+        Debug.Log( "Type de room : " );
+
+        Debug.Log( "Position du player : " );
+        Debug.Log( m_startRoom );
+        Debug.Log( " ---------------------- " );
+        Debug.Log( "Positions des Safes Room : " );
+        foreach( var room in m_safeRooms )
         {
-            Debug.Log( item.ToString() );
+            Debug.Log( room );
+        }
+        Debug.Log( " ---------------------- " );
+        Debug.Log( "Positions des traps room : " );
+        foreach( var room in m_trapRooms )
+        {
+            Debug.Log( room );
         }
     }
+    /// <summary>
+    /// Initialise map :
+    /// - The player starts in a corner at random
+    /// - x Safe Room in the three remaining corners
+    /// - x Trap Room in the remaining rooms
+    /// <Const param name="m_nbSafeRoom"> Safe Room </param>
+    /// <Const param name="m_nbTrapRoom"> Trap Room </param>
+    /// </summary>
     private void InitiateMap() {
         int tmpIdx;
         Color tmpColor;
@@ -52,9 +71,11 @@ public class InitiateMapManager : MonoBehaviour {
         idxCornerMap.Add((m_rooms.Count  - m_mapWidth  ));
         //Debug.Log( idxCornerMap[ 0 ] + " " + idxCornerMap[ 1 ] + " " + idxCornerMap[ 2 ] + " " + idxCornerMap[ 3 ] + " " );
 
+        // Prototypage map :
         // Start Room
         tmpIdx = Random.Range( 0, idxCornerMap.Count );
-        m_rooms[ idxCornerMap[tmpIdx] ].RoomType = TypeRoom.startRoom;
+        m_rooms[ idxCornerMap[tmpIdx] ].RoomType = TypeRoom.StartRoom;
+        m_startRoom = m_rooms[ idxCornerMap[ tmpIdx ] ];
         idxToDistribute[idxCornerMap [tmpIdx] ] = -1;
         idxCornerMap[tmpIdx ] = -1;
 
@@ -64,54 +85,57 @@ public class InitiateMapManager : MonoBehaviour {
             do
                 tmpIdx = Random.Range( 0, idxCornerMap.Count );
             while( idxCornerMap[ tmpIdx ] == -1 );
-            m_rooms[ idxCornerMap[ tmpIdx ] ].RoomType = TypeRoom.safeRoom;
+            m_rooms[ idxCornerMap[ tmpIdx ] ].RoomType = TypeRoom.SafeRoom;
+            m_safeRooms.Add( new Room( m_rooms[ idxCornerMap[ tmpIdx ] ] ) );
             idxToDistribute[idxCornerMap[ tmpIdx ]] = -1;
             idxCornerMap[tmpIdx ] = -1;
         }
 
-        // Danger Room
-        for( int i = 0; i < m_nbDangerRoom; i++ )
+        // Trap Room
+        for( int i = 0; i < m_nbTrapRoom; i++ )
         {
             do
                 tmpIdx = Random.Range( 0, idxToDistribute.Count );
             while( idxToDistribute[ tmpIdx ] == -1 );
-
-            m_rooms[ idxToDistribute[ tmpIdx ] ].RoomType = TypeRoom.dangerRoom;
+            m_rooms[ idxToDistribute[ tmpIdx ] ].RoomType = TypeRoom.TrapRoom;
+            m_trapRooms.Add( new Room( m_rooms[ idxToDistribute[ tmpIdx ] ] ) );
             idxToDistribute[ tmpIdx ] = -1;
-
         }
-        //int[] idxSafeRoom = new int[m_nbSafeRoom];
-        //int[] idxDangerRoom = new int[m_nbDangerRoom];
-        // StartPlayer
 
+        // Colorisation Room
         for( int i = 0; i < m_rooms.Count; i++ )
         {
             switch( m_rooms[i].RoomType )
             {
-                case TypeRoom.defaultRoom: tmpColor = Color.gray;
+                case TypeRoom.DefaultRoom: tmpColor = Color.gray;
                     break;
-                case TypeRoom.safeRoom: tmpColor = Color.green;
+                case TypeRoom.SafeRoom: tmpColor = Color.green;
                     break;
-                case TypeRoom.dangerRoom: tmpColor = Color.red;
+                case TypeRoom.TrapRoom: tmpColor = Color.red;
                     break;
-                case TypeRoom.startRoom: tmpColor = Color.white;
+                case TypeRoom.StartRoom: tmpColor = Color.white;
                     break;
                 default: tmpColor = Color.black;
                     break;
             }
             m_rooms[ i ].MeshRenderer.materials[ 0 ].SetColor( "_Color", tmpColor );
         }
+
+        // Debug Infos Room
+        debugInfoRoom();
     }
     
     #endregion
 
     #region Private Members
     private List<Room> m_rooms = new List<Room>();
-    private Transform m_startRoom;
+    private List<Room> m_safeRooms = new List<Room>();
+    private List<Room> m_trapRooms = new List<Room>();
+    private Room m_startRoom = new Room();
 
     // ---------------------------------
     private const int m_nbSafeRoom = 2;
-    private const int m_nbDangerRoom = 10;
+    private const int m_nbTrapRoom = 10;
     private const int m_mapWidth = 8;
     private const int m_mapHeigt = 4;
 

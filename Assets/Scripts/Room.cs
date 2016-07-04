@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 
+// Enumeration : Room Type
 public enum TypeRoom {
-    defaultRoom = 0, 
-    safeRoom = 1,
-    dangerRoom = 2,
-    startRoom
+    DefaultRoom = 0, 
+    SafeRoom = 1,
+    TrapRoom = 2,
+    StartRoom = 3
 }
 public class Room {
 
@@ -18,6 +20,12 @@ public class Room {
 
     #region Main Methods
     public Room() { }
+    public Room( Room _room ) {
+        m_transform = _room.m_transform;
+        m_meshRenderer = _room.m_meshRenderer;
+        m_name = _room.m_name;
+        m_RoomType = _room.m_RoomType;
+    }
     public Room(Transform _transform, MeshRenderer _meshRenderer, string _name) {
         m_transform = _transform;
         m_meshRenderer = _meshRenderer;
@@ -27,12 +35,20 @@ public class Room {
 
     public override string ToString()
     {
-        return Name  + " - Position : " + Transform.position + MeshRenderer.materials[0].color;
+        StringBuilder sb = new StringBuilder();
+        sb.AppendFormat( "Name : {0}\n", Name );
+        sb.AppendFormat( "Type Room : {0}\n", RoomType );
+        sb.AppendFormat( "Transform [x : {0}, y : {1}, z : {2}]\n", 
+            Transform.position.x.ToString(), 
+            Transform.position.y.ToString(), 
+            Transform.position.z.ToString() );
+        sb.AppendFormat( "MeshRenderer [Color : {0}]\n", MeshRenderer.materials[ 0 ].color );
+        return sb.ToString();
     }
     #endregion
 
     #region Utils
-
+    
     #endregion
 
     #region Private Members
