@@ -56,6 +56,7 @@ class NetworkScript : NetworkBehaviour
         {
             GameManager.IsGameOver = false;
             ResetNetwork();
+
         }
     }
 
@@ -69,7 +70,7 @@ class NetworkScript : NetworkBehaviour
         Global.PlayerSpawned = false;
         m_networkManager.StopHost();
         Destroy( this.gameObject );
-        SceneManager.LoadScene( 0 );
+        SceneManager.LoadScene( 2 );
     }
     
     private bool m_Connecting = true;

@@ -31,10 +31,14 @@ public class ButtonScripts : MonoBehaviour
         }
 
 
-        if (buttonId == 1 || buttonId == 3)
+        if (buttonId == 1)
         {
             Global.Server = true;
             SceneManager.LoadScene( 1 );
+        }
+
+        if( buttonId == 3 ) {
+            SceneManager.LoadScene( 0 );
         }
 
         if( buttonId == 2 )
