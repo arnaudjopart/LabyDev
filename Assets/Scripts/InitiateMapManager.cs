@@ -6,6 +6,11 @@ public class InitiateMapManager : MonoBehaviour {
     #region Public and Protected Members
     public int m_mapWidth = 8;
     public int m_mapHeigt = 4;
+
+    public Transform[] m_trapRoomPrefabs;
+    public Transform m_startRoomPrefab;
+    public Transform m_endRoomPrefab;
+    public Transform m_normalRoomPrefab;
     #endregion
 
     #region Main Methods
@@ -14,7 +19,7 @@ public class InitiateMapManager : MonoBehaviour {
     {       
        foreach(  Transform item in transform )
         {
-            m_rooms.Add( new Room(item, item.GetComponent<MeshRenderer>(), item.name ));
+            m_rooms.Add( new Room(item, item.name ));
         }
         //debugInfoRoom();
         InitiateMap();
@@ -92,18 +97,36 @@ public class InitiateMapManager : MonoBehaviour {
         {
             switch( m_rooms[i].RoomType )
             {
-                case TypeRoom.defaultRoom: tmpColor = Color.gray;
+                case TypeRoom.defaultRoom:
+                    tmpColor = Color.gray;
                     break;
-                case TypeRoom.safeRoom: tmpColor = Color.green;
+                case TypeRoom.safeRoom:
+                    tmpColor = Color.green;
                     break;
-                case TypeRoom.dangerRoom: tmpColor = Color.red;
+                case TypeRoom.dangerRoom:
+                    tmpColor = Color.red;
+
+                    int rand = Random.Range(0, m_trapRoomPrefabs.Length);
+
+                    Transform trap = Instantiate( m_trapRoomPrefabs[ rand ], Vector3.zero, Quaternion.identity ) as Transform;
+                    trap.SetParent( m_rooms[ i ].Transform, false );
+                    
+                    
+                    //trap.position = Vector3.zero;
+
+
+                    Debug.Log( "Room " + i + " ---> piège " + rand );
+
                     break;
-                case TypeRoom.startRoom: tmpColor = Color.white;
+                case TypeRoom.startRoom:
+                    tmpColor = Color.white;
                     break;
-                default: tmpColor = Color.black;
+                default:
+                    tmpColor = Color.black;
                     break;
             }
-            m_rooms[ i ].MeshRenderer.materials[ 0 ].SetColor( "_Color", tmpColor );
+
+            m_rooms[ i ].m_icon.GetComponent<MeshRenderer>().materials[ 0 ].SetColor( "_Color", tmpColor );
         }
     }
     

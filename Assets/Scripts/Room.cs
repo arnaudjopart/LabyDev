@@ -13,21 +13,22 @@ public class Room {
     public string Name { get { return m_name; } set { m_name = value; } }
     public TypeRoom RoomType { get { return m_RoomType; } set { m_RoomType = value; } }
     public Transform Transform { get { return m_transform; } }
-    public MeshRenderer MeshRenderer { get { return m_meshRenderer; } set { m_meshRenderer = value; } }
     #endregion
 
     #region Main Methods
     public Room() { }
-    public Room(Transform _transform, MeshRenderer _meshRenderer, string _name) {
+    public Room(Transform _transform, string _name) {
         m_transform = _transform;
-        m_meshRenderer = _meshRenderer;
+       
         m_name = _name;
+        m_icon = _transform.GetChild(0);
+
         m_RoomType = 0;
     }
 
     public override string ToString()
     {
-        return Name  + " - Position : " + Transform.position + MeshRenderer.materials[0].color;
+        return Name  + " - Position : " + Transform.position;
     }
     #endregion
 
@@ -37,8 +38,8 @@ public class Room {
 
     #region Private Members
     private Transform m_transform;
-    private MeshRenderer m_meshRenderer;
     private string m_name;
     private TypeRoom m_RoomType;
+    public Transform m_icon;
     #endregion
 }
