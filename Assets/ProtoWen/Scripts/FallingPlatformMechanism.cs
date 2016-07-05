@@ -21,6 +21,9 @@ public class FallingPlatformMechanism : MonoBehaviour {
     {
         m_isActive = false;
         m_PlatformTransform = m_platform.GetComponent<Transform>();
+
+        m_originPosY = m_PlatformTransform.position.y;
+        m_actualPosY = m_originPosY;
     }
 
     void Update()
@@ -29,9 +32,14 @@ public class FallingPlatformMechanism : MonoBehaviour {
         if( m_isActive )
         {
             m_PlatformTransform.position = new Vector3( m_PlatformTransform.position.x, m_PlatformTransform.position.y - (Time.deltaTime * m_fallingSpeed), m_PlatformTransform.position.z );
+
+            m_originPosY = m_PlatformTransform.position.y;
         }
-        else if( m_PlatformTransform.position.y > -10f )
+        if( m_actualPosY < m_originPosY - 10f )
         {
+            m_isActive = false;
+
+
             Destroy( this.gameObject );
         }
     }
@@ -56,6 +64,8 @@ public class FallingPlatformMechanism : MonoBehaviour {
 
     private bool m_isActive = false;
     private Transform m_PlatformTransform;
+    private float m_originPosY;
+    private float m_actualPosY;
 
     #endregion
 

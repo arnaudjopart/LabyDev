@@ -54,8 +54,8 @@ public class FPSController : MonoBehaviour
     void Update()
     {
 
-        Debug.Log( m_time );
-        Debug.Log( m_spot.intensity );
+        //Debug.Log( m_time );
+        //Debug.Log( m_spot.intensity );
         m_time -= Time.deltaTime;
 
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )

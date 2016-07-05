@@ -5,7 +5,7 @@ public class GroundTrapMechanism : MonoBehaviour {
 
     #region Public & Protected Members
 
-    [HideInInspector]
+    
     public GameObject m_platformref;
     [HideInInspector]
     public int  m_x = 10,
@@ -52,11 +52,10 @@ public class GroundTrapMechanism : MonoBehaviour {
                     for( int j = 4 - m_count; j < 6 + m_count; j++ )
                     {
                        
-                        if( m_platforms[ i ][ j ] != null)
-                        {
+                       
                             FallingPlatformMechanism plat = m_platforms[ i ][ j ].GetComponent<FallingPlatformMechanism>();
                             plat.LaunchTrap();
-                        }
+                        
 
                        
                        
