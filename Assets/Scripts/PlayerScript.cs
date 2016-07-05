@@ -15,6 +15,8 @@ class PlayerScript : NetworkBehaviour
 
     void Start ()
     {
+        this.name = "NetworkEntity";
+
         if (isLocalPlayer)
         {
             if (isServer)
@@ -67,6 +69,7 @@ class PlayerScript : NetworkBehaviour
     private void InitPlayer()
     {
         Debug.Log( "Connected !" );
+
         Camera.main.GetComponentInChildren<Canvas>().enabled = false;
 
         m_transform = GetComponent<Transform>();
@@ -74,33 +77,34 @@ class PlayerScript : NetworkBehaviour
         if( m_state == PlayerType.FpsLocal && !Global.PlayerSpawned )
         {
             Global.PlayerSpawned = true;
-
-            this.name = "Fps Player (Local)";
-
+            
             m_player = (GameObject)Instantiate( m_fpsPlayerPrefab, Global.playerSpawnPosition, Quaternion.identity );
             m_playerTransform = m_player.GetComponent<Transform>();
 
-            m_playerTransform.parent = this.transform;
+            m_player.name = "Fps Player (Local)";
+
+            m_transform.parent = m_playerTransform;
         }
         else
         if( m_state == PlayerType.MapLocal )
         {
-            this.name = "Map Player (Local)";
-
             m_player = (GameObject)Instantiate( m_mapPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
             m_playerTransform = m_player.GetComponent<Transform>();
 
-            m_playerTransform.parent = this.transform;
+            m_player.name = "Map Player (Local)";
+
+            m_transform.parent = m_playerTransform;
         }
         else
         if( m_state == PlayerType.FpsDistant )
         {
-            this.name = "Fps Player (Distant)";
 
             m_player = (GameObject)Instantiate( m_fpsDistantPlayerPrefab, new Vector3( 0, 0, 0 ), Quaternion.identity );
             m_playerTransform = m_player.GetComponent<Transform>();
 
-            m_playerTransform.parent = this.transform;
+            m_player.name = "Fps Player (Distant)";
+
+            m_transform.parent = m_playerTransform;
         }
         else
         {
