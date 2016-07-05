@@ -10,13 +10,16 @@ public class GameManager : MonoBehaviour
     public FPSController playerFPS;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
+    
+    
+
     #endregion
 
     #region Main Methods
 
     public static void GameOver()
     {
-
+        
         IsGameOver = true;
         //launch end scene;
         Debug.Log( "GameOver" );

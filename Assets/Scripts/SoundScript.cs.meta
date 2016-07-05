@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ddae6edb8b509a9499ed934fd667e846
+timeCreated: 1467719802
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - m_backgroundMusic: {fileID: 8300000, guid: c46b759327eaad843a9506ad908e8a44, type: 3}
+  - m_ambience: {fileID: 8300000, guid: 27cc1f067cab83843bd58a9086c938ff, type: 3}
+  - m_paAnnounce: {fileID: 8300000, guid: be4c4489a84bc524f82acbd3778df0ae, type: 3}
+  - m_paAnnounce1: {fileID: 8300000, guid: 62405331f362db24cb2f19f351148d64, type: 3}
+  - m_paAnnounce2: {fileID: 8300000, guid: 3cd9058a6f4b18545a92ae2532135441, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

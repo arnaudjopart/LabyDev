@@ -4,7 +4,7 @@ using System.Collections;
 public class KillPlayer : MonoBehaviour {
 
     #region Public & Protected Members
-
+    
  
 
     #endregion
@@ -16,6 +16,7 @@ public class KillPlayer : MonoBehaviour {
     // Kill the player on collide
     void OnTriggerEnter(Collider _other)
     {
+        
         //Destroy( _other.gameObject );
         GameManager.GameOver();
     }
