@@ -70,7 +70,7 @@ class NetworkScript : NetworkBehaviour
         Global.PlayerSpawned = false;
         m_networkManager.StopHost();
         Destroy( this.gameObject );
-        SceneManager.LoadScene( 2 );
+        
     }
     
     private bool m_Connecting = true;

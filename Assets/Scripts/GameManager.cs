@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,22 @@ public class GameManager : MonoBehaviour
     public FPSController playerFPS;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
-    
-    
+
+    static GameManager s_instance;
 
     #endregion
 
     #region Main Methods
+
+    void Awake()
+
+    {
+        if( !s_instance )
+        {
+            s_instance = this;
+        }
+    }
+
 
     public static void GameOver()
     {
@@ -23,10 +34,14 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         //launch end scene;
         Debug.Log( "GameOver" );
+        SoundScript.PlayDeathSound();
+        GameManager.s_instance.Invoke( "LoadGameOverScene", 2f );
+        
     }
 
     void Start()
     {
+        
         IsGameOver = false;
 
         objective = Random.Range( 0, 1 );
@@ -38,13 +53,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if ( m_PlayerIsAlive )
+        /*if( IsGameOver )
         {
-            m_PlayerIsAlive = false;
-            IsGameOver = true;
-            //Application.LoadLevel();
-        }
-        
+            if( !m_isWaitingToLoadNextScene )
+            {
+                m_isWaitingToLoadNextScene = true;
+                
+            }
+            
+
+        }*/
+
     }
     #endregion
 
@@ -71,9 +90,16 @@ public class GameManager : MonoBehaviour
         
         
     }
+    private void LoadGameOverScene()
+    {
+        SceneManager.LoadScene( 2 );
+    }
+
     #endregion
 
+
     #region Private Members
+    private bool m_isWaitingToLoadNextScene = false;
     #endregion
 
 }

@@ -11,7 +11,7 @@ public class SoundScript : MonoBehaviour {
     public AudioClip m_paAnnounce1;
     public AudioClip m_paAnnounce2;
     //public AudioClip m_paAnnounce3;
-    public AudioClip m_deathSound;
+    public static AudioClip m_deathSound;
     #endregion
 
     #region Main Methdos
@@ -93,12 +93,7 @@ public class SoundScript : MonoBehaviour {
             }
             if( GameManager.IsGameOver )
             {
-                if( !m_Audio6.isPlaying )
-                {
-                    m_Audio6.volume = 0.5f;
-                    m_Audio6.PlayOneShot( m_deathSound );
-
-                }
+                
 
             }
             
@@ -107,6 +102,18 @@ public class SoundScript : MonoBehaviour {
           
         
 
+    }
+
+    public static void PlayDeathSound()
+    {
+        m_Audio6.Play();
+        /*if( !m_Audio6.isPlaying )
+        {
+            print( "Meurs !!!" );
+            m_Audio6.volume = 1f;
+            
+
+        }*/
     }
     
     #endregion
@@ -121,7 +128,7 @@ public class SoundScript : MonoBehaviour {
     private AudioSource m_Audio3;
     private AudioSource m_Audio4;
     private AudioSource m_Audio5;
-    private AudioSource m_Audio6;
+    public static AudioSource m_Audio6;
     
 
     private Vector3 pos;
