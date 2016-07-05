@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
         //launch end scene;
         Debug.Log( "GameOver" );
     }
+
     void Start()
     {
         IsGameOver = false;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
         //m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
 
     }
+
     void Update()
     {
         if ( m_PlayerIsAlive )
