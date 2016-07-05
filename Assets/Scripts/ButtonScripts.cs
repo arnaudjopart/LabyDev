@@ -31,7 +31,7 @@ public class ButtonScripts : MonoBehaviour
         }
 
 
-        if (buttonId == 1)
+        if (buttonId == 1 || buttonId == 3)
         {
             Global.Server = true;
             SceneManager.LoadScene( 1 );

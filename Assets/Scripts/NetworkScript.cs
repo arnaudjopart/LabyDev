@@ -48,7 +48,6 @@ class NetworkScript : NetworkBehaviour
         else
         if( !m_networkManager.isNetworkActive )
         {
-            //TimeOut (Marche Poa :/)
             Debug.Log( "TimeOut !" );
             ResetNetwork();
         }
