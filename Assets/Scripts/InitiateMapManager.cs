@@ -14,7 +14,7 @@ public class InitiateMapManager : MonoBehaviour {
     {       
        foreach(  Transform item in transform )
         {
-            m_rooms.Add( new Room(item, item.GetComponent<MeshRenderer>(), item.name ));
+            m_rooms.Add( new Room(item, item.name ));
         }
         //debugInfoRoom();
         InitiateMap();
@@ -103,7 +103,8 @@ public class InitiateMapManager : MonoBehaviour {
                 default: tmpColor = Color.black;
                     break;
             }
-            m_rooms[ i ].MeshRenderer.materials[ 0 ].SetColor( "_Color", tmpColor );
+
+            m_rooms[ i ].m_icon.GetComponent<MeshRenderer>().materials[ 0 ].SetColor( "_Color", tmpColor );
         }
     }
     
