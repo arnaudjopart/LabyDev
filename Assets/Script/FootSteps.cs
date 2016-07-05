@@ -31,7 +31,7 @@ public class FootSteps : MonoBehaviour {
         isGetKeyDown =!playSteps && (Input.GetKeyDown( "up" ) || Input.GetKeyDown( "down" ) || Input.GetKeyDown( "left" ) ||Input.GetKeyDown( "right" ));
         isKeyAllDirections=Input.GetKeyUp( "up" )||Input.GetKeyUp( "down" )||Input.GetKeyUp( "left" )||Input.GetKeyUp( "right" );
 
-        print( isKeyAllDirections );
+        //print( isKeyAllDirections );
        
 
         if( isKeyAllDirections )
