@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     public bool m_PlayerIsAlive;
     public FPSController playerFPS;
     public static bool IsGameOver = false;
+    public int m_gameTimeInSeconds;
     #endregion
 
     #region Main Methods
 
     public static void GameOver()
     {
+
         IsGameOver = true;
         //launch end scene;
         Debug.Log( "GameOver" );
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
             IsGameOver = true;
             //Application.LoadLevel();
         }
+        
     }
     #endregion
 
@@ -52,6 +55,16 @@ public class GameManager : MonoBehaviour
         {
             objective = 0;
         }
+    }
+    IEnumerator GameTick()
+    {
+        while( m_gameTimeInSeconds > 0 )
+        {
+            yield return new WaitForSeconds( 1f );
+            m_gameTimeInSeconds--;
+        }
+        
+        
     }
     #endregion
 

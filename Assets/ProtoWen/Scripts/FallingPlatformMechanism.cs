@@ -26,9 +26,13 @@ public class FallingPlatformMechanism : MonoBehaviour {
     void Update()
     {
         // Floor fall when activated
-        if( m_isActive && m_PlatformTransform.position.y > -10f )
+        if( m_isActive )
         {
             m_PlatformTransform.position = new Vector3( m_PlatformTransform.position.x, m_PlatformTransform.position.y - (Time.deltaTime * m_fallingSpeed), m_PlatformTransform.position.z );
+        }
+        else if( m_PlatformTransform.position.y > -10f )
+        {
+            Destroy( this.gameObject );
         }
     }
 

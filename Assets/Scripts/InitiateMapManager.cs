@@ -92,24 +92,32 @@ public class InitiateMapManager : MonoBehaviour {
         //int[] idxSafeRoom = new int[m_nbSafeRoom];
         //int[] idxDangerRoom = new int[m_nbDangerRoom];
         // StartPlayer
-
+        Transform room;
         for( int i = 0; i < m_rooms.Count; i++ )
         {
             switch( m_rooms[i].RoomType )
             {
                 case TypeRoom.defaultRoom:
                     tmpColor = Color.gray;
+
+                    room = Instantiate( m_normalRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
+                    room.SetParent( m_rooms[ i ].Transform, false );
+
                     break;
                 case TypeRoom.safeRoom:
                     tmpColor = Color.green;
+
+                    room = Instantiate( m_endRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
+                    room.SetParent( m_rooms[ i ].Transform, false );
+
                     break;
                 case TypeRoom.dangerRoom:
                     tmpColor = Color.red;
 
                     int rand = Random.Range(0, m_trapRoomPrefabs.Length);
 
-                    Transform trap = Instantiate( m_trapRoomPrefabs[ rand ], Vector3.zero, Quaternion.identity ) as Transform;
-                    trap.SetParent( m_rooms[ i ].Transform, false );
+                    room = Instantiate( m_trapRoomPrefabs[ rand ], Vector3.zero, Quaternion.identity ) as Transform;
+                    room.SetParent( m_rooms[ i ].Transform, false );
                     
                     
                     //trap.position = Vector3.zero;
@@ -120,6 +128,10 @@ public class InitiateMapManager : MonoBehaviour {
                     break;
                 case TypeRoom.startRoom:
                     tmpColor = Color.white;
+
+                    room = Instantiate( m_startRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
+                    room.SetParent( m_rooms[ i ].Transform, false );
+
                     break;
                 default:
                     tmpColor = Color.black;

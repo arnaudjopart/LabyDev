@@ -22,6 +22,8 @@ public class FPSController : MonoBehaviour
     public Rigidbody m_rb;
     public Camera m_camera;
 
+
+
     public RaycastHit m_raycast;
 
     public float m_time;
@@ -32,6 +34,10 @@ public class FPSController : MonoBehaviour
 
     public float m_speed;
 
+    public GameObject m_cone;
+
+
+
     #endregion
 
 
@@ -39,18 +45,17 @@ public class FPSController : MonoBehaviour
     #region Main Methods
     void Start()
     {
-        m_time = 240;
-        m_canFlash = true;
-        m_waitCoroutine = false;
-        m_isAlive = true;
+        m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.1f );
+        
+       
 
     }
 
     void Update()
     {
 
-        //Debug.Log( m_time );
-        //Debug.Log( m_spot.intensity );
+        Debug.Log( m_time );
+        Debug.Log( m_spot.intensity );
         m_time -= Time.deltaTime;
 
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
@@ -74,7 +79,10 @@ public class FPSController : MonoBehaviour
         if ( Physics.Raycast( m_camera.transform.position, m_camera.transform.TransformDirection( Vector3.forward ), out hit ) )
         {
             m_spot.transform.LookAt( hit.point );
+            
         }
+
+        
 
 
         //Fait tourner le joueur et la camera
@@ -85,7 +93,7 @@ public class FPSController : MonoBehaviour
 
         if ( Input.GetKey( "up" ) )
         {
-            transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed*Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
+            transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
         }
 
         if ( Input.GetKey( "right" ) )
@@ -103,6 +111,8 @@ public class FPSController : MonoBehaviour
 
             transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
         }
+
+        
 
     }
 
