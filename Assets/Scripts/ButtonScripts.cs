@@ -37,11 +37,7 @@ public class ButtonScripts : MonoBehaviour
             SceneManager.LoadScene( 1 );
         }
 
-        if( buttonId == 3 ) {
-            SceneManager.LoadScene( 0 );
-        }
-
-        if( buttonId == 2 )
+        if( buttonId == 2 ) 
         {
             Global.Server = false;
 
@@ -49,6 +45,17 @@ public class ButtonScripts : MonoBehaviour
                 Global.Ip = m_IpEntry.text;
 
             SceneManager.LoadScene( 1 );
+        }
+
+        if( buttonId == 3 ) // Retry - implements reload a connection / retry a game
+        {
+            // SceneManager.LoadScene( 0 );
+            Debug.Log( "Retry the game" );
+        }
+
+        if( buttonId == 4 ) // back to the menu
+        {
+            SceneManager.LoadScene( 0 );
         }
     }
 }
