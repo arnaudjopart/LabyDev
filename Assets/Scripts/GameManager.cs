@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public FPSController playerFPS;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
+    public static bool m_player1Win;
+    public static bool m_player2Win;
+    public static string m_player2currentObjective; 
 
     static GameManager s_instance;
 
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour
     #region Main Methods
 
     void Awake()
-
     {
         if( !s_instance )
         {
@@ -34,8 +36,12 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         //launch end scene;
         Debug.Log( "GameOver" );
-        SoundScript.PlayDeathSound();
-        GameManager.s_instance.Invoke( "LoadGameOverScene", 2f );
+        if( !m_player1Win )
+        {
+            SoundScript.PlayDeathSound();
+        }
+        
+        GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );
         
     }
 
@@ -53,16 +59,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        /*if( IsGameOver )
-        {
-            if( !m_isWaitingToLoadNextScene )
-            {
-                m_isWaitingToLoadNextScene = true;
-                
-            }
-            
-
-        }*/
 
     }
     #endregion
