@@ -96,7 +96,7 @@ public class FPSController : MonoBehaviour
         rotationY = Mathf.Clamp( rotationY, minimumY, maximumY );
         m_camera.transform.localEulerAngles = new Vector3( -rotationY, 0, 0 );
 
-        if (true /*NetworkManager.m_instance.m_IsConnected*/ )
+        if (NetworkManager.m_instance.m_IsConnected )
         {
             if( Input.GetKey( "up" ) )
             {
