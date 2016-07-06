@@ -22,7 +22,7 @@ public class FPSController : MonoBehaviour
     public Rigidbody m_rb;
     public Camera m_camera;
 
-
+    public bool isWaitingForJack;
 
     public RaycastHit m_raycast;
 
@@ -96,7 +96,8 @@ public class FPSController : MonoBehaviour
         rotationY = Mathf.Clamp( rotationY, minimumY, maximumY );
         m_camera.transform.localEulerAngles = new Vector3( -rotationY, 0, 0 );
 
-        if (NetworkManager.m_instance.m_IsConnected )
+        // isConnected TRISTAN !!!!!!!!!!! 
+        if (true)
         {
             if( Input.GetKey( "up" ) )
             {
