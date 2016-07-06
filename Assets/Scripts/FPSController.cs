@@ -96,29 +96,29 @@ public class FPSController : MonoBehaviour
         rotationY = Mathf.Clamp( rotationY, minimumY, maximumY );
         m_camera.transform.localEulerAngles = new Vector3( -rotationY, 0, 0 );
 
-        if ( Input.GetKey( "up" ) )
+        if (NetworkManager.m_instance.m_IsConnected )
         {
-            transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
+            if( Input.GetKey( "up" ) )
+            {
+                transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
+            }
+
+            if( Input.GetKey( "right" ) )
+            {
+                transform.Translate( new Vector3( m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime ) );
+            }
+
+            if( Input.GetKey( "left" ) )
+            {
+                transform.Translate( new Vector3( (m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
+            }
+
+            if( Input.GetKey( "down" ) )
+            {
+
+                transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
+            }
         }
-
-        if ( Input.GetKey( "right" ) )
-        {
-            transform.Translate( new Vector3( m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime ) );
-        }
-
-        if ( Input.GetKey( "left" ) )
-        {
-            transform.Translate( new Vector3( (m_cibleRight.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleRight.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
-        }
-
-        if ( Input.GetKey( "down" ) )
-        {
-
-            transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
-        }
-
-        
-
     }
 
     #endregion

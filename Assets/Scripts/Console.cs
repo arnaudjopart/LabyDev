@@ -13,7 +13,7 @@ public class Console : MonoBehaviour
 	
 	void Update ()
     {
-	    if (Input.GetKeyDown(KeyCode.KeypadEnter) && m_console.text != "" )
+	    if (Input.GetKeyDown(KeyCode.Return) && m_console.text != "" )
         {
             NetworkManager.m_instance.SendSms( m_console.text );
             m_console.text = "";

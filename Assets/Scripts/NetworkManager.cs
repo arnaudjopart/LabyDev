@@ -44,6 +44,12 @@ public class NetworkManager : MonoBehaviour
                 if (!m_showConnect)
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+
+                    if (!m_IsServer)
+                    {
+                        SendObjectif( GameManager.m_player2Objective );
+                    }
+
                     m_showConnect = true;
                 }
 
@@ -128,7 +134,7 @@ public class NetworkManager : MonoBehaviour
     #region Receive
     private void Receive()
     {
-        while( m_socket.Available > 3)
+        while( m_socket.Available > 1)
         {
             if( m_lenghtPacket != -1 )
             {
@@ -187,6 +193,11 @@ public class NetworkManager : MonoBehaviour
             GameManager.m_player2Objective = _packet[ 1 ];
             m_gameManager.m_uiCanvas.LoadNewSMS( "objectif changed : " + GameManager.m_player2Objective );
         }
+        else
+        if( _packet[ 0 ] == 4 ) //Player VR is dead
+        {
+            GameManager.GameOver();
+        }
 
     }
     #endregion
@@ -194,9 +205,12 @@ public class NetworkManager : MonoBehaviour
     #region Send
     private void Send(byte Id, byte[] _data)
     {
-        byte[] header = new byte[2] { (byte)(_data.Length + 1), Id };
+        if (m_IsConnected)
+        {
+            byte[] header = new byte[2] { (byte)(_data.Length + 1), Id };
 
-        m_socket.Send( AddPacket( header, _data) );
+            m_socket.Send( AddPacket( header, _data ) );
+        }
     }
 
     public void SendSms(string _sms)
@@ -207,6 +221,11 @@ public class NetworkManager : MonoBehaviour
     public void SendObjectif(int _objectif)
     {
         Send( 3, new byte[] { (byte)_objectif } );
+    }
+
+    public void SendGameOver()
+    {
+        Send( 4, new byte[] { 0 } );
     }
     #endregion
 
@@ -283,6 +302,7 @@ public class NetworkManager : MonoBehaviour
         m_IsConnected = false;
         m_Ip = "127.0.0.1";
         m_lenghtPacket = -1;
+        GameManager.IsGameOver = false;
     }
     
     private Socket m_socket;

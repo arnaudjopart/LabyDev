@@ -5,13 +5,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Public and Protected Members
-    public bool m_PlayerIsAlive;
-    public FPSController playerFPS;
+    public static bool m_PlayerIsAlive;
+    public static bool m_player1Win;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
-    public static bool m_player1Win;
-    public static bool m_player2Win;
-
     public static int m_player2Objective; 
     
     public UICanvas m_uiCanvas;
@@ -37,11 +34,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log( "GameOver" );
 
-        if( !m_player1Win )
+        if( Global.Server )
         {
             SoundScript.PlayDeathSound();
+            GameManager.s_instance.m_networkManager.SendGameOver();
         }
-        
+                
         GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
 
@@ -51,9 +49,8 @@ public class GameManager : MonoBehaviour
 
         if (!Global.Server)
         {
-            m_player2Objective = Random.Range( 0, 1 );
+            m_player2Objective = Random.Range( 0, 2 );
             StartCoroutine( But() );
-            m_networkManager.SendObjectif( m_player2Objective );
         }
         else
         {

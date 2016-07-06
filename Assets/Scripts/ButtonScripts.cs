@@ -49,8 +49,7 @@ public class ButtonScripts : MonoBehaviour
 
         if( buttonId == 3 ) // Retry - implements reload a connection / retry a game
         {
-            // SceneManager.LoadScene( 0 );
-            Debug.Log( "Retry the game" );
+            SceneManager.LoadScene( 1 );
         }
 
         if( buttonId == 4 ) // back to the menu
