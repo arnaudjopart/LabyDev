@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net.Sockets;
 using System.Net;
 using System;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -99,15 +100,23 @@ public class NetworkManager : MonoBehaviour
 
         m_socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
 
-        m_socket.Connect( localEndPoint );
+        try
+        {
+            m_socket.Connect( localEndPoint );
 
-        Debug.Log( "Connected" );
-        m_IsConnected = true;
+            Debug.Log( "Connected" );
+            m_IsConnected = true;
 
-        m_ConnectionFrame.enabled = false;
+            m_ConnectionFrame.enabled = false;
 
-        m_FpsIcon = Instantiate( m_prefabFpsIcon );
-        m_Monitor = Instantiate( m_prefabMonitor );
+            m_FpsIcon = Instantiate( m_prefabFpsIcon );
+            m_Monitor = Instantiate( m_prefabMonitor );
+        }
+        catch
+        {
+            Debug.Log( "Time Out !" );
+            SceneManager.LoadScene( 0 );
+        }
     }
     #endregion
 
