@@ -37,12 +37,19 @@ public class NetworkManager : MonoBehaviour
     {
         if (m_IsConnected)
         {
-            if( m_IsServer )
+            try
             {
-                Send( 1, GetBytes(m_FpsLocal.transform.position) );
-            }
+                if( m_IsServer )
+                {
+                    Send( 1, GetBytes( m_FpsLocal.transform.position ) );
+                }
 
-            Receive();
+                Receive();
+            }
+            catch
+            {
+                m_IsConnected = false;
+            }
         }
 	}
     
