@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Net;
 using System;
 using UnityEngine.SceneManagement;
+using System.Text;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class NetworkManager : MonoBehaviour
     public bool m_IsConnected;
     public string m_Ip;
 
+    public GameManager m_gameManager;
+
     void Start ()
     {
 	    if ( !m_instance )
@@ -30,8 +33,6 @@ public class NetworkManager : MonoBehaviour
             StartServer();
         else
             StartClient( Global.Ip );
-
-        //StartServer(); //StartClient("127.0.0.1");
     }
 
     void Update ()
@@ -65,7 +66,7 @@ public class NetworkManager : MonoBehaviour
 
         m_socket.Listen( 100 );
 
-        Debug.Log( "Server Started" );
+        m_gameManager.m_uiCanvas.LoadNewSMS( "Server Started" );
 
         InitFpsPlayer();
 
@@ -79,11 +80,9 @@ public class NetworkManager : MonoBehaviour
         Socket handler = listener.EndAccept(ar);
 
         m_socket = handler;
-        
-        Debug.Log( "Connected" );
-        m_IsConnected = true;
 
-        //InitFpsPlayer();
+        m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+        m_IsConnected = true;
     }
 
     private void InitFpsPlayer()
@@ -169,6 +168,13 @@ public class NetworkManager : MonoBehaviour
 
             m_FpsIcon.transform.position = pos;
         }
+        else
+        if ( _packet[ 0 ] == 2 ) //Sms
+        {
+            string sms = Encoding.ASCII.GetString( SubPacket( _packet, 1, _packet.Length - 1 ) );
+
+            m_gameManager.m_uiCanvas.LoadNewSMS( sms );
+        }
 
     }
     #endregion
@@ -179,6 +185,11 @@ public class NetworkManager : MonoBehaviour
         byte[] header = new byte[2] { (byte)(_data.Length + 1), Id };
 
         m_socket.Send( AddPacket( header, _data) );
+    }
+
+    public void SendSms(string _sms)
+    {
+        Send( 2, Encoding.ASCII.GetBytes( _sms ) );
     }
     #endregion
 

@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     public static bool m_player2Win;
     public static string m_player2currentObjective; 
 
-    static GameManager s_instance;
+    public UICanvas m_uiCanvas;
+
+    public static GameManager s_instance;
 
     #endregion
 
