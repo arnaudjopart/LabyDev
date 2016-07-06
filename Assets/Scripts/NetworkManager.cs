@@ -44,6 +44,12 @@ public class NetworkManager : MonoBehaviour
                 if (!m_showConnect)
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+
+                    if (!m_IsServer)
+                    {
+                        SendObjectif( GameManager.m_player2Objective );
+                    }
+
                     m_showConnect = true;
                 }
 
@@ -116,8 +122,6 @@ public class NetworkManager : MonoBehaviour
 
             m_FpsIcon = Instantiate( m_prefabFpsIcon );
             m_Monitor = Instantiate( m_prefabMonitor );
-            
-            SendObjectif( GameManager.m_player2Objective );
         }
         catch
         {

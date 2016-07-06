@@ -40,10 +40,8 @@ public class GameManager : MonoBehaviour
         if( Global.Server )
         {
             SoundScript.PlayDeathSound();
-        }
-
-        if( Global.Server )
             GameManager.s_instance.m_networkManager.SendGameOver();
+        }
                 
         GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
@@ -54,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         if (!Global.Server)
         {
-            m_player2Objective = Random.Range( 0, 1 );
+            m_player2Objective = Random.Range( 0, 2 );
             StartCoroutine( But() );
         }
         else
