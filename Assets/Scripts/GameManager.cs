@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if( !s_instance )
+
+
+        if ( !s_instance )
         {
             s_instance = this;
         }
@@ -52,14 +54,14 @@ public class GameManager : MonoBehaviour
 
         objective = Random.Range( 0, 1 );
         StartCoroutine( But() );
-
+        StartCoroutine( GameTick() );
         //m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
 
     }
 
     void Update()
     {
-
+        Debug.Log( m_gameTimeInSeconds );
     }
     #endregion
 
