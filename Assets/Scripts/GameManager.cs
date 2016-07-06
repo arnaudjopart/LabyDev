@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     #region Public and Protected Members
     public static bool m_PlayerIsAlive;
+    public static bool m_player1Win;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
     public static int m_player2Objective; 
