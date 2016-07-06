@@ -199,9 +199,12 @@ public class NetworkManager : MonoBehaviour
     #region Send
     private void Send(byte Id, byte[] _data)
     {
-        byte[] header = new byte[2] { (byte)(_data.Length + 1), Id };
+        if (m_IsConnected)
+        {
+            byte[] header = new byte[2] { (byte)(_data.Length + 1), Id };
 
-        m_socket.Send( AddPacket( header, _data) );
+            m_socket.Send( AddPacket( header, _data ) );
+        }
     }
 
     public void SendSms(string _sms)
