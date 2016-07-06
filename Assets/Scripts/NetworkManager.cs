@@ -41,6 +41,12 @@ public class NetworkManager : MonoBehaviour
         {
             try
             {
+                if (!m_showConnect)
+                {
+                    m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+                    m_showConnect = true;
+                }
+
                 if( m_IsServer )
                 {
                     Send( 1, GetBytes( m_FpsLocal.transform.position ) );
@@ -51,6 +57,7 @@ public class NetworkManager : MonoBehaviour
             catch
             {
                 m_IsConnected = false;
+                m_gameManager.m_uiCanvas.LoadNewSMS( "No network :/" );
             }
         }
 	}
@@ -80,8 +87,7 @@ public class NetworkManager : MonoBehaviour
         Socket handler = listener.EndAccept(ar);
 
         m_socket = handler;
-
-        m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+        
         m_IsConnected = true;
     }
 
@@ -175,6 +181,12 @@ public class NetworkManager : MonoBehaviour
 
             m_gameManager.m_uiCanvas.LoadNewSMS( sms );
         }
+        else
+        if ( _packet[ 0 ] == 3 ) //objectif state
+        {
+            GameManager.m_player2Objective = _packet[ 1 ];
+            m_gameManager.m_uiCanvas.LoadNewSMS( "objectif changed : " + GameManager.m_player2Objective );
+        }
 
     }
     #endregion
@@ -190,6 +202,11 @@ public class NetworkManager : MonoBehaviour
     public void SendSms(string _sms)
     {
         Send( 2, Encoding.ASCII.GetBytes( _sms ) );
+    }
+
+    public void SendObjectif(int _objectif)
+    {
+        Send( 3, new byte[] { (byte)_objectif } );
     }
     #endregion
 
@@ -261,6 +278,7 @@ public class NetworkManager : MonoBehaviour
 
     private void ResetNetwork()
     {
+        m_showConnect = false;
         m_IsServer = true;
         m_IsConnected = false;
         m_Ip = "127.0.0.1";
@@ -273,4 +291,6 @@ public class NetworkManager : MonoBehaviour
     private GameObject m_FpsLocal;
     private GameObject m_FpsIcon;
     private GameObject m_Monitor;
+
+    private bool m_showConnect;
 }

@@ -5,18 +5,17 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Public and Protected Members
-    // 0 = méchant, 1 = gentil
-    public int objective;
     public bool m_PlayerIsAlive;
     public FPSController playerFPS;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
     public static bool m_player1Win;
     public static bool m_player2Win;
-    public static string m_player2currentObjective; 
 
-
+    public static int m_player2Objective; 
+    
     public UICanvas m_uiCanvas;
+    public NetworkManager m_networkManager;
 
     public static GameManager s_instance;
 
@@ -31,14 +30,13 @@ public class GameManager : MonoBehaviour
             s_instance = this;
         }
     }
-
-
+    
     public static void GameOver()
     {
-        
         IsGameOver = true;
-        //launch end scene;
+
         Debug.Log( "GameOver" );
+
         if( !m_player1Win )
         {
             SoundScript.PlayDeathSound();
@@ -49,18 +47,23 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
         IsGameOver = false;
 
-        objective = Random.Range( 0, 1 );
-        StartCoroutine( But() );
-        StartCoroutine( GameTick() );
-        
-
+        if (!Global.Server)
+        {
+            m_player2Objective = Random.Range( 0, 1 );
+            StartCoroutine( But() );
+            m_networkManager.SendObjectif( m_player2Objective );
+        }
+        else
+        {
+            StartCoroutine( GameTick() );
+        }
     }
 
     void Update()
     {
+
     }
     #endregion
 
@@ -68,15 +71,18 @@ public class GameManager : MonoBehaviour
     IEnumerator But()
     {
         yield return new WaitForSeconds( Random.Range( 30, 80 ) );
-        if ( objective == 0 )
+        if ( m_player2Objective == 0 )
         {
-            objective = 1;
+            m_player2Objective = 1;
         }
         else
         {
-            objective = 0;
+            m_player2Objective = 0;
         }
+
+        m_networkManager.SendObjectif( m_player2Objective );
     }
+
     IEnumerator GameTick()
     {
         while( m_gameTimeInSeconds > 0 )
@@ -85,21 +91,16 @@ public class GameManager : MonoBehaviour
             m_gameTimeInSeconds--;
         }
         GameOver();
-
-
-
-
     }
+
     private void LoadGameOverScene()
     {
         SceneManager.LoadScene( 2 );
     }
-
     #endregion
 
 
     #region Private Members
     private bool m_isWaitingToLoadNextScene = false;
     #endregion
-
 }
