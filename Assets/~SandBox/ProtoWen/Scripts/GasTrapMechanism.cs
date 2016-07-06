@@ -10,6 +10,9 @@ public class GasTrapMechanism : MonoBehaviour {
     [HideInInspector]
     public GameObject m_gas;
 
+  
+    public GameObject m_gasPart;
+
     #endregion
 
     #region Main Methods
@@ -18,6 +21,7 @@ public class GasTrapMechanism : MonoBehaviour {
     {
         m_isActive = false;
         m_gasTransform = m_gas.GetComponent<Transform>();
+       
     }
 
     void Update()
@@ -26,6 +30,7 @@ public class GasTrapMechanism : MonoBehaviour {
         if( m_isActive && m_gasTransform.localScale.x < 10f )
         {
             m_gas.SetActive( true );
+            m_gasPart.SetActive( true );
             m_gasTransform.localScale = new Vector3( m_gasTransform.localScale.x + (Time.deltaTime * m_gasProgressionSpeed), m_gasTransform.localScale.y, m_gasTransform.localScale.z + (Time.deltaTime * m_gasProgressionSpeed));
         }
     }
