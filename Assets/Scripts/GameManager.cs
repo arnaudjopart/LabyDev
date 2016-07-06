@@ -5,13 +5,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Public and Protected Members
-    public bool m_PlayerIsAlive;
-    public FPSController playerFPS;
+    public static bool m_PlayerIsAlive;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
-    public static bool m_player1Win;
-    public static bool m_player2Win;
-
     public static int m_player2Objective; 
     
     public UICanvas m_uiCanvas;
