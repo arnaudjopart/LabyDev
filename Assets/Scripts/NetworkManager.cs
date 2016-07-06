@@ -302,6 +302,7 @@ public class NetworkManager : MonoBehaviour
         m_IsConnected = false;
         m_Ip = "127.0.0.1";
         m_lenghtPacket = -1;
+        GameManager.IsGameOver = false;
     }
     
     private Socket m_socket;
