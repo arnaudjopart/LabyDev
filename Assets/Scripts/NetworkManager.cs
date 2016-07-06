@@ -44,6 +44,10 @@ public class NetworkManager : MonoBehaviour
                 if (!m_showConnect)
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+
+                    if (!m_IsServer)
+                        SendObjectif( GameManager.m_player2Objective );
+
                     m_showConnect = true;
                 }
 

@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         {
             m_player2Objective = Random.Range( 0, 1 );
             StartCoroutine( But() );
-            m_networkManager.SendObjectif( m_player2Objective );
         }
         else
         {
