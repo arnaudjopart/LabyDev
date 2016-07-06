@@ -1,24 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KillPlayer : MonoBehaviour {
+public class KillPlayerOnCollide : MonoBehaviour {
 
     #region Public & Protected Members
-    
- 
+
+
 
     #endregion
 
     #region Main Methods
 
-    
+
     // TODO 
     // Kill the player on collide
-    void OnTriggerEnter(Collider _other)
+    void OnCollisionEnter(Collision _other)
     {
+        if( _other.gameObject.GetComponent<FPSController>() )
+        {
+            //Destroy( _other.gameObject );
+            GameManager.GameOver();
+        }
         
-        //Destroy( _other.gameObject );
-        GameManager.GameOver();
 
     }
     #endregion

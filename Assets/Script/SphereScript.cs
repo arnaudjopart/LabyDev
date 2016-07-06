@@ -1,39 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerScript : MonoBehaviour {
+public class SphereScript : MonoBehaviour {
+
+
 
     #region Public and Protected Members
-    public GameObject m_cube;
-    
+    public int m_lifeTime = 100;
     #endregion
 
     #region Main Methods
-
     // Use this for initialization
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(m_lifeTime == 0)
+        {
+            Destroy( this.gameObject );
+        }
+        m_lifeTime--;
     }
     #endregion
 
     #region Utils
-    void OnTriggerEnter(Collider _col )
-    {
-       
-        CubeScript c = m_cube.GetComponent<CubeScript>();
-        c.m_triggered = true;
-    }
+
     #endregion
 
     #region Private Members
     
     #endregion
-
 }

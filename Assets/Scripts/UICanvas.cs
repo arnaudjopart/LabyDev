@@ -50,7 +50,7 @@ public class UICanvas : MonoBehaviour {
             m_energy1.color = Color.clear;
             
         }
-        Debug.Log( m_time );
+        //Debug.Log( m_time );
     }
 
     public void LoadNewSMS(string _text)

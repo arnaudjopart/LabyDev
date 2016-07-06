@@ -13,7 +13,6 @@ public class Tiles : MonoBehaviour {
     public float m_maxRangeRrd = 0.003f;
 
     public bool m_triggered = false;
-    private bool m_activated = true;
 
     public List<GameObject> m_tab;
     public List<TilesEvolution> m_tabTiles;
@@ -55,28 +54,20 @@ public class Tiles : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(m_triggered && m_activated)
+        if(m_triggered)
         {
             foreach(TilesEvolution item in m_tabTiles)
             {
-                Vector3 tmp = item.m_tiles.transform.position;
+                Vector3 tmp = item.m_tiles.transform.localPosition;
                 if(item.m_up)
                 {
                     tmp.y += item.m_speed;
-                    if(tmp.y >= 10 )
-                    {
-                        m_activated = false;
-                    }
                 }
                 else
                 {
                     tmp.y -= item.m_speed;
-                    if( tmp.y <= -10 )
-                    {
-                        m_activated = false;
-                    }
                 }
-                item.m_tiles.transform.position = tmp;
+                item.m_tiles.transform.localPosition = tmp;
             }
         }
         

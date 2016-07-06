@@ -5,7 +5,9 @@ public class GroundTrapMechanism : MonoBehaviour {
 
     #region Public & Protected Members
 
-    
+
+    public Transform m_parent;
+    [HideInInspector]
     public GameObject m_platformref;
     [HideInInspector]
     public int  m_x = 10,
@@ -33,7 +35,11 @@ public class GroundTrapMechanism : MonoBehaviour {
             m_platforms[ i ] = new GameObject[ m_y ];
             for( int j = 0; j < m_y; j++ )
             {
-                m_platforms[ i ][ j ] = (GameObject)Instantiate(m_platformref, new Vector3(i -4.5f, 0, j - 4.5f), Quaternion.identity);
+                GameObject temp = Instantiate(m_platformref, Vector3.zero, Quaternion.identity) as GameObject;
+                temp.transform.SetParent( m_parent, false);
+                temp.transform.localPosition = new Vector3( i - 4.5f, 0, j - 4.5f ) ;
+
+                m_platforms[ i ][ j ] = temp;
             }
         }
     }
@@ -51,13 +57,8 @@ public class GroundTrapMechanism : MonoBehaviour {
                 {
                     for( int j = 4 - m_count; j < 6 + m_count; j++ )
                     {
-                       
-                       
-                            FallingPlatformMechanism plat = m_platforms[ i ][ j ].GetComponent<FallingPlatformMechanism>();
-                            plat.LaunchTrap();
-                        
-
-                       
+                        FallingPlatformMechanism plat = m_platforms[ i ][ j ].GetComponent<FallingPlatformMechanism>();
+                        plat.LaunchTrap();
                        
                     }
                 }

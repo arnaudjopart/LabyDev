@@ -23,7 +23,7 @@ public class FloorTrapMechanism : MonoBehaviour {
     void Update()
     {
         // Floor fall when activated
-        if( m_isActive && m_floorTransform.position.y > 1.5f)
+        if( m_isActive && m_floorTransform.position.y > 0f)
         {
             m_floorTransform.position = new Vector3( m_floorTransform.position.x, m_floorTransform.position.y -(Time.deltaTime * m_fallingSpeed) , m_floorTransform.position.z );
         }

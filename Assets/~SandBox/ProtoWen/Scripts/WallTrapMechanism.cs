@@ -25,14 +25,16 @@ public class WallTrapMechanism : MonoBehaviour {
     void Update()
     {
         // Wall1 move when activated
-        if( m_isActive && m_transformWall1.position.z > 2.5f )
+        if( m_isActive && m_transformWall1.localPosition.z > 2.5f )
         {
+            m_wall1.SetActive( true );
             m_transformWall1.position = new Vector3( m_transformWall1.position.x, m_transformWall1.position.y, m_transformWall1.position.z - (Time.deltaTime * m_movingSpeed) );
         }
 
         // Wall2 move when activated
-        if( m_isActive && m_transformWall2.position.z < -2.5f )
+        if( m_isActive && m_transformWall2.localPosition.z < -2.5f )
         {
+            m_wall2.SetActive( true );
             m_transformWall2.position = new Vector3( m_transformWall2.position.x, m_transformWall2.position.y, m_transformWall2.position.z + (Time.deltaTime * m_movingSpeed) );
         }
 
