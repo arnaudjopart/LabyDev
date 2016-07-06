@@ -63,6 +63,7 @@ public class NetworkManager : MonoBehaviour
             catch
             {
                 m_IsConnected = false;
+                SceneManager.LoadScene( 0 );
                 m_gameManager.m_uiCanvas.LoadNewSMS( "No network :/" );
             }
         }
@@ -115,13 +116,16 @@ public class NetworkManager : MonoBehaviour
         {
             m_socket.Connect( localEndPoint );
 
-            Debug.Log( "Connected" );
-            m_IsConnected = true;
+            if( m_socket.Connected )
+            {
+                Debug.Log( "Connected" );
+                m_IsConnected = true;
 
-            m_ConnectionFrame.enabled = false;
+                m_ConnectionFrame.enabled = false;
 
-            m_FpsIcon = Instantiate( m_prefabFpsIcon );
-            m_Monitor = Instantiate( m_prefabMonitor );
+                m_FpsIcon = Instantiate( m_prefabFpsIcon );
+                m_Monitor = Instantiate( m_prefabMonitor );
+            }
         }
         catch
         {
