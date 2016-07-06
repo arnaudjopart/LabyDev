@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log( "GameOver" );
 
-        if( !m_player1Win )
+        if( Global.Server )
         {
             SoundScript.PlayDeathSound();
         }
