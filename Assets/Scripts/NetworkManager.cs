@@ -187,6 +187,11 @@ public class NetworkManager : MonoBehaviour
             GameManager.m_player2Objective = _packet[ 1 ];
             m_gameManager.m_uiCanvas.LoadNewSMS( "objectif changed : " + GameManager.m_player2Objective );
         }
+        else
+        if( _packet[ 0 ] == 4 ) //Player VR is dead
+        {
+            GameManager.GameOver();
+        }
 
     }
     #endregion
@@ -207,6 +212,11 @@ public class NetworkManager : MonoBehaviour
     public void SendObjectif(int _objectif)
     {
         Send( 3, new byte[] { (byte)_objectif } );
+    }
+
+    public void SendGameOver()
+    {
+        Send( 4, new byte[] { 0 } );
     }
     #endregion
 

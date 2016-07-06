@@ -41,7 +41,10 @@ public class GameManager : MonoBehaviour
         {
             SoundScript.PlayDeathSound();
         }
-        
+
+        if( Global.Server )
+            GameManager.s_instance.m_networkManager.SendGameOver();
+                
         GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
 
