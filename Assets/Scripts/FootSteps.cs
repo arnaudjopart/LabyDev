@@ -32,7 +32,7 @@ public class FootSteps : MonoBehaviour {
         isKeyAllDirections=Input.GetKeyUp( "up" ) || Input.GetKeyUp( "down" ) || Input.GetKeyUp( "left" ) || Input.GetKeyUp( "right" );
 
         //print( isKeyAllDirections );
-        Debug.Log( "keydown"+ " " +isGetKeyDown );
+        //Debug.Log( "keydown"+ " " +isGetKeyDown );
       
 
         if( isKeyAllDirections )
