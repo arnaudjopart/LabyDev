@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-
-
         if ( !s_instance )
         {
             s_instance = this;
@@ -61,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log( m_gameTimeInSeconds );
+        //Debug.Log( m_gameTimeInSeconds );
     }
     #endregion
 

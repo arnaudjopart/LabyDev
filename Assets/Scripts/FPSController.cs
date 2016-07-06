@@ -51,9 +51,6 @@ public class FPSController : MonoBehaviour
     {
         m_gameManager = GameObject.FindObjectOfType<GameManager>();
         m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.1f );
-
-      
-
     }
 
     void Update()
@@ -65,7 +62,7 @@ public class FPSController : MonoBehaviour
         {
             m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f, 1.0f, 0f );
         }
-        Debug.Log( "fps" + m_time );
+        //Debug.Log( "fps" + m_time );
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
         {
             StartCoroutine( Flash() );
