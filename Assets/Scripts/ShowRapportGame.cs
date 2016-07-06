@@ -19,7 +19,7 @@ public class ShowRapportGame : MonoBehaviour {
         m_rapportPlayer2UI = GameObject.Find( "labelRapportPlayer2" ).GetComponent<Text>();
 
         m_deathPlayer1 = false ; // GameManager.m_player1Win;
-        m_objectivePlayer2 = false ; // GameManager.m_player2Win; // true : gentil false : mechant
+        m_objectivePlayer2 = GameManager.m_player2Objective == 1 ? true : false; // GameManager.m_player2Win; // true : gentil false : mechant
         ShowRapport();
     }
 
