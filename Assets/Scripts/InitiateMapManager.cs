@@ -123,7 +123,7 @@ public class InitiateMapManager : MonoBehaviour {
                     //trap.position = Vector3.zero;
 
 
-                    Debug.Log( "Room " + i + " ---> piège " + rand );
+                    //Debug.Log( "Room " + i + " ---> piège " + rand );
 
                     break;
                 case TypeRoom.startRoom:

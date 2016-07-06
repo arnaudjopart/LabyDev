@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     public static bool m_player2Win;
     public static string m_player2currentObjective; 
 
-    static GameManager s_instance;
+
+    public UICanvas m_uiCanvas;
+
+    public static GameManager s_instance;
 
     #endregion
 
@@ -23,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if( !s_instance )
+        if ( !s_instance )
         {
             s_instance = this;
         }
@@ -41,8 +44,7 @@ public class GameManager : MonoBehaviour
             SoundScript.PlayDeathSound();
         }
         
-        GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );
-        
+        GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
 
     void Start()
@@ -52,14 +54,13 @@ public class GameManager : MonoBehaviour
 
         objective = Random.Range( 0, 1 );
         StartCoroutine( But() );
-
-        //m_PlayerIsAlive = GameObject.Find( "Player" ).GetComponent<FPSController>().m_isAlive;
+        StartCoroutine( GameTick() );
+        
 
     }
 
     void Update()
     {
-
     }
     #endregion
 
@@ -83,8 +84,11 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds( 1f );
             m_gameTimeInSeconds--;
         }
-        
-        
+        GameOver();
+
+
+
+
     }
     private void LoadGameOverScene()
     {

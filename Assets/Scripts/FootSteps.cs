@@ -26,17 +26,18 @@ public class FootSteps : MonoBehaviour {
 
     void Update()
     {
-    
+        elapsedTime += Time.deltaTime;
         pos = m_playerPos.position;
-        isGetKeyDown =!playSteps && (Input.GetKeyDown( "up" ) || Input.GetKeyDown( "down" ) || Input.GetKeyDown( "left" ) ||Input.GetKeyDown( "right" ));
-        isKeyAllDirections=Input.GetKeyUp( "up" )||Input.GetKeyUp( "down" )||Input.GetKeyUp( "left" )||Input.GetKeyUp( "right" );
+        isGetKeyDown =(!playSteps && (Input.GetKeyDown( "up" ) || Input.GetKeyDown( "down" ) || Input.GetKeyDown( "left" ) ||Input.GetKeyDown( "right" )));
+        isKeyAllDirections=Input.GetKeyUp( "up" ) || Input.GetKeyUp( "down" ) || Input.GetKeyUp( "left" ) || Input.GetKeyUp( "right" );
 
         //print( isKeyAllDirections );
-       
+        //Debug.Log( "keydown"+ " " +isGetKeyDown );
+      
 
         if( isKeyAllDirections )
         {
-            m_Audio.Pause();
+            m_Audio.Stop();
             isKeyAllDirections=false;
         }
 
@@ -46,9 +47,25 @@ public class FootSteps : MonoBehaviour {
             playSteps = false;
             StopCoroutine( PlayFootstep() );
         }
-        else if( isGetKeyDown )
+        else if( isGetKeyDown)
         {
+       
             StartCoroutine( PlayFootstep() );
+            
+        }
+        if( elapsedTime > 0.5f  )
+        {
+            if( !isGetKeyDown )
+            {
+                m_Audio.Stop();
+                elapsedTime = 0f;
+            }
+            if( Input.GetKey( "up" ) || Input.GetKey( "down" ) || Input.GetKey( "left" ) || Input.GetKey( "right" ) )
+            {
+                StartCoroutine( PlayFootstep() );
+            }
+
+
         }
 
     }
@@ -61,6 +78,7 @@ public class FootSteps : MonoBehaviour {
         yield return new WaitForSeconds( 0.4f );
         if( !m_Audio.isPlaying )
             m_Audio.Play();
+        elapsedTime = 0f;
 
     }
     #endregion
@@ -69,6 +87,7 @@ public class FootSteps : MonoBehaviour {
     private AudioSource m_Audio;
     private Vector3 pos;
     private Transform m_playerPos;
+    private float elapsedTime =0f;
     private bool playSteps;
     private bool isGetKeyDown=false;
     private bool isKeyAllDirections=false;

@@ -27,6 +27,10 @@ public class FPSController : MonoBehaviour
     public RaycastHit m_raycast;
 
     public float m_time;
+    public GameManager m_gameManager;
+    
+    
+
     public bool m_canFlash;
     public bool m_waitCoroutine;
 
@@ -45,18 +49,19 @@ public class FPSController : MonoBehaviour
     #region Main Methods
     void Start()
     {
+        m_gameManager = GameObject.FindObjectOfType<GameManager>();
         m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.1f );
-        
-       
-
     }
 
     void Update()
     {
 
-        //Debug.Log( m_time );
-        //Debug.Log( m_spot.intensity );
-        m_time -= Time.deltaTime;
+
+        m_time = m_gameManager.m_gameTimeInSeconds;
+        if (m_time <= 0)
+        {
+            m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f, 1.0f, 0f );
+        }
 
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
         {
