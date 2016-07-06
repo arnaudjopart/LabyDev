@@ -22,7 +22,7 @@ public class UICanvas : MonoBehaviour {
         m_timeMax = m_gameManager.m_gameTimeInSeconds;
 
 
-        LoadNewSMS( "Lorem ipsums dolor..." );
+        //LoadNewSMS( "Lorem ipsums dolor..." );
 
     }
 
@@ -55,10 +55,10 @@ public class UICanvas : MonoBehaviour {
 
     public void LoadNewSMS(string _text)
     {
-        Text newText = Instantiate( m_TextMessagePrefab,transform.position,Quaternion.identity ) as Text;
+        Text newText = Instantiate( m_TextMessagePrefab,Vector3.zero,Quaternion.identity ) as Text;
         newText.transform.SetParent( m_historic.transform, false );
         newText.text = _text;     
-        //m_sms.text = _text;
+        
     }
 
 }
