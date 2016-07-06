@@ -59,11 +59,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
-        
-=======
-        //Debug.Log( m_gameTimeInSeconds );
->>>>>>> e02447ba71e51995e7aedfebe8cd89c930514f1b
     }
     #endregion
 

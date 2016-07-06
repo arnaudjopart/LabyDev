@@ -62,11 +62,7 @@ public class FPSController : MonoBehaviour
         {
             m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f, 1.0f, 0f );
         }
-<<<<<<< HEAD
-        
-=======
-        //Debug.Log( "fps" + m_time );
->>>>>>> e02447ba71e51995e7aedfebe8cd89c930514f1b
+
         if ( Random.Range( 999, 1000 ) >= 999 && m_canFlash == true && m_waitCoroutine == false )
         {
             StartCoroutine( Flash() );
