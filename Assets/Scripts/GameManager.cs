@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             GameManager.s_instance.m_networkManager.SendGameOver();
         }
 
-        NetworkManager.m_instance.CloseSocket();
+        //NetworkManager.m_instance.CloseSocket();
 
         GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
