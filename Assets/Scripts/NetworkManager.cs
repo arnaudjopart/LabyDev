@@ -23,6 +23,7 @@ public class NetworkManager : MonoBehaviour
     public string m_Ip;
 
     public GameManager m_gameManager;
+    public InitiateMapManager m_mapManager;
 
     void Start ()
     {
@@ -53,6 +54,11 @@ public class NetworkManager : MonoBehaviour
                     {
                         SendObjectif( GameManager.m_player2Objective );
                         StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
+                    }
+                    else
+                    {
+                        for( int i = 0; i < m_mapManager.m_rooms.Count; i++ )
+                            SendTypeRoom( i, (int)m_mapManager.m_rooms[ i ].RoomType );
                     }
 
                     m_showConnect = true;
@@ -210,7 +216,11 @@ public class NetworkManager : MonoBehaviour
         {
             GameManager.GameOver();
         }
-
+        else
+        if( _packet[ 0 ] == 5 ) //Set Color Rooms
+        {
+            m_mapManager.ApplyIconColor( _packet[ 1 ], _packet[ 2 ] );
+        }
     }
     #endregion
 
@@ -238,6 +248,11 @@ public class NetworkManager : MonoBehaviour
     public void SendGameOver()
     {
         Send( 4, new byte[] { 0 } );
+    }
+
+    public void SendTypeRoom(int _room, int _type)
+    {
+        Send( 5, new byte[] { (byte)_room, (byte)_type } );
     }
     #endregion
 
