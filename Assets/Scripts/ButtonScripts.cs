@@ -24,15 +24,7 @@ public class ButtonScripts : MonoBehaviour
 
     void Clicked()
     {
-        if( buttonId == -1 )
-        {
-            if( m_click != null )
-            {
-                m_click.Play();
-            }
-            Debug.Log( "Quit Game" );
-            Application.Quit();
-        }
+        
 
         if( buttonId == 0 )
         {
@@ -55,7 +47,7 @@ public class ButtonScripts : MonoBehaviour
             {
                 m_canvasAnim.SetTrigger("FadeOutTrigger");
             }
-            StartCoroutine( LoadScene( 1, 2f ) );
+            StartCoroutine( LoadScene( 2, 2f ) );
         }
 
         if( buttonId == 2 )
@@ -72,7 +64,7 @@ public class ButtonScripts : MonoBehaviour
             if ( m_IpEntry.text != "" )
                 Global.Ip = m_IpEntry.text;
 
-            StartCoroutine( LoadScene( 1, 2f ) );
+            StartCoroutine( LoadScene( 2, 2f ) );
         }
 
         if( buttonId == 3 ) // Retry - implements reload a connection / retry a game
@@ -87,7 +79,7 @@ public class ButtonScripts : MonoBehaviour
                 m_canvasAnim.SetTrigger("FadeOutTrigger");
             }
 
-            StartCoroutine( LoadScene( 1, 2f ) );
+            StartCoroutine( LoadScene( 2, 2f ) );
 
             Debug.Log( "Retry the game" );
         }
@@ -102,7 +94,7 @@ public class ButtonScripts : MonoBehaviour
             {
                 m_canvasAnim.SetTrigger("FadeOutTrigger");
             }
-            StartCoroutine( LoadScene( 0, 2f ) );
+            StartCoroutine( LoadScene( 1, 2f ) );
         }
         if( buttonId == 5 ) // Credit Scene
         {
@@ -114,7 +106,7 @@ public class ButtonScripts : MonoBehaviour
             {
                 m_canvasAnim.SetTrigger("FadeOutTrigger");
             }
-            StartCoroutine( LoadScene( 3, 2f ) );
+            StartCoroutine( LoadScene( 4, 2f ) );
         }
         if (buttonId == 6) // Quit
         {

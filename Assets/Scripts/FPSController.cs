@@ -149,7 +149,7 @@ public class FPSController : MonoBehaviour
     {
 
         int j = Random.Range(2,6);
-        Debug.Log( j );
+        //Debug.Log( j );
         for ( int i = 0; i < j; i++ )
         {
 
