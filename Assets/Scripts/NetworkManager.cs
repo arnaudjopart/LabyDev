@@ -227,6 +227,11 @@ public class NetworkManager : MonoBehaviour
             Quaternion rotation = GetQuaternion( SubPacket( _packet, 1, _packet.Length - 1 ) );
             m_FpsIcon.transform.rotation = rotation;
         }
+        else
+        if( _packet[ 0 ] == 7 ) //Win Player
+        {
+            GameManager.m_player1Win = true;
+        }
     }
     #endregion
 
@@ -259,6 +264,11 @@ public class NetworkManager : MonoBehaviour
     public void SendTypeRoom(int _room, int _type)
     {
         Send( 5, new byte[] { (byte)_room, (byte)_type } );
+    }
+
+    public void SendPlayerWin()
+    {
+        Send( 7, new byte[] { 0 } );
     }
     #endregion
 

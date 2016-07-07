@@ -16,6 +16,7 @@ public class WinGame : MonoBehaviour {
     {
         m_winSound.Play();
         print( "You win" );
+        NetworkManager.m_instance.SendPlayerWin();
         GameManager.m_player1Win = true;
         GameManager.GameOver();
     }
