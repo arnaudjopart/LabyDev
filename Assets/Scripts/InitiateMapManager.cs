@@ -6,11 +6,14 @@ public class InitiateMapManager : MonoBehaviour {
     #region Public and Protected Members
     public int m_mapWidth = 8;
     public int m_mapHeigt = 4;
+    public int m_nbDangerRoom = 15;
 
     public Transform[] m_trapRoomPrefabs;
     public Transform m_startRoomPrefab;
     public Transform m_endRoomPrefab;
     public Transform m_normalRoomPrefab;
+
+    
     #endregion
 
     #region Main Methods
@@ -150,7 +153,7 @@ public class InitiateMapManager : MonoBehaviour {
 
     // ---------------------------------
     private const int m_nbSafeRoom = 2;
-    private const int m_nbDangerRoom = 10;
+    
     
 
     #endregion
