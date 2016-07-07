@@ -113,7 +113,6 @@ public class NetworkManager : MonoBehaviour
     private void InitFpsPlayer()
     {
         m_msgconnection.text = "Staring Server ...";
-        m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal , Global.playerSpawnPosition, Quaternion.identity);
         StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
     }
     #endregion
@@ -365,6 +364,9 @@ public class NetworkManager : MonoBehaviour
     {
         yield return new WaitForSeconds( _waitTime );
         m_ConnectionFrame.SetActive( false );
+        
+        if (Global.Server)
+            m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal, Global.playerSpawnPosition, Quaternion.identity );
     }
     
     private Socket m_socket;
