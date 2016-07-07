@@ -11,33 +11,33 @@ public class CollisionTrapSound : MonoBehaviour {
 	void OnTriggerEnter(Collider _other)
     {
 
-        elapsedTime += Time.deltaTime;
         
-        if( _other.GetComponent<WallTriggeredByPlayer>() && (isTrapped || elapsedTime > m_timerTrap))
+        
+        if( _other.GetComponent<WallTriggeredByPlayer>() )
+
+            LaunchTrapSound();
+        
+        if( _other.GetComponent<GasTriggeredByPlayer>() )
         
             LaunchTrapSound();
         
-        if( _other.GetComponent<GasTriggeredByPlayer>() && (isTrapped || elapsedTime > m_timerTrap) )
+        if( _other.GetComponent<GroundTriggeredByPlayer>() )
         
             LaunchTrapSound();
         
-        if( _other.GetComponent<GroundTriggeredByPlayer>() && (isTrapped || elapsedTime > m_timerTrap) )
+        if( _other.GetComponent<TilesTriggerScript>() )
         
             LaunchTrapSound();
         
-        if( _other.GetComponent<TilesTriggerScript>() && (isTrapped || elapsedTime > m_timerTrap) )
+        if( _other.GetComponent<PyramideTriggerScript>())
         
             LaunchTrapSound();
         
-        if( _other.GetComponent<PyramideTriggerScript>() && (isTrapped || elapsedTime > m_timerTrap) )
+        if( _other.GetComponent<FallingPlatTriggeredByPlayer>() )
         
             LaunchTrapSound();
         
-        if( _other.GetComponent<FallingPlatTriggeredByPlayer>() && (isTrapped || elapsedTime > m_timerTrap) )
-        
-            LaunchTrapSound();
-        
-        if( _other.GetComponent<FloorTriggeredByPlayer>() && (isTrapped || elapsedTime > m_timerTrap) )
+        if( _other.GetComponent<FloorTriggeredByPlayer>() )
             LaunchTrapSound();
 
     
@@ -46,11 +46,17 @@ public class CollisionTrapSound : MonoBehaviour {
     }
     private void LaunchTrapSound()
     {
-        isTrapped = false;
-        elapsedTime = 0f;
-        m_trapSound.Play();
+        if( Time.timeSinceLevelLoad > m_startTimer+m_timerTrap )
+        {
+            m_startTimer = Time.timeSinceLevelLoad;
+            if( !m_trapSound.isPlaying ) m_trapSound.Play();
+
+        }
+        
+        
+        
+        
     }
 
-    private float elapsedTime = 0;
-    private bool isTrapped=true;
+    private float m_startTimer=0;
 }
