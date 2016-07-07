@@ -72,7 +72,9 @@ public class ButtonScripts : MonoBehaviour
             {
                 m_click.Play();
             }
-            // SceneManager.LoadScene( 0 );
+
+            StartCoroutine( LoadScene( 1, 2f ) );
+
             Debug.Log( "Retry the game" );
         }
 
