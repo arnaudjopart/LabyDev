@@ -11,6 +11,9 @@ public class WallTrapMechanism : MonoBehaviour {
     public GameObject   m_wall1, 
                         m_wall2;
 
+    public GameObject   m_wallBlock1,
+                        m_wallBlock2;
+
     #endregion
 
     #region Main Methods
@@ -29,6 +32,10 @@ public class WallTrapMechanism : MonoBehaviour {
         {
             m_wall1.SetActive( true );
             m_transformWall1.position = new Vector3( m_transformWall1.position.x, m_transformWall1.position.y, m_transformWall1.position.z - (Time.deltaTime * m_movingSpeed) );
+        } else if( m_isActive )
+        {
+            m_wallBlock1.SetActive( true );
+            Destroy( m_wall1 );
         }
 
         // Wall2 move when activated
@@ -37,6 +44,12 @@ public class WallTrapMechanism : MonoBehaviour {
             m_wall2.SetActive( true );
             m_transformWall2.position = new Vector3( m_transformWall2.position.x, m_transformWall2.position.y, m_transformWall2.position.z + (Time.deltaTime * m_movingSpeed) );
         }
+        else if( m_isActive )
+        {
+            m_wallBlock2.SetActive( true );
+            Destroy( m_wall2 );
+        }
+
 
 
     }
