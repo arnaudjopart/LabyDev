@@ -113,7 +113,6 @@ public class NetworkManager : MonoBehaviour
     private void InitFpsPlayer()
     {
         m_msgconnection.text = "Staring Server ...";
-        m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal , Global.playerSpawnPosition, Quaternion.identity);
         StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
     }
     #endregion
@@ -228,6 +227,11 @@ public class NetworkManager : MonoBehaviour
             Quaternion rotation = GetQuaternion( SubPacket( _packet, 1, _packet.Length - 1 ) );
             m_FpsIcon.transform.rotation = rotation;
         }
+        else
+        if( _packet[ 0 ] == 7 ) //Win Player
+        {
+            GameManager.m_player1Win = true;
+        }
     }
     #endregion
 
@@ -260,6 +264,11 @@ public class NetworkManager : MonoBehaviour
     public void SendTypeRoom(int _room, int _type)
     {
         Send( 5, new byte[] { (byte)_room, (byte)_type } );
+    }
+
+    public void SendPlayerWin()
+    {
+        Send( 7, new byte[] { 0 } );
     }
     #endregion
 
@@ -365,6 +374,9 @@ public class NetworkManager : MonoBehaviour
     {
         yield return new WaitForSeconds( _waitTime );
         m_ConnectionFrame.SetActive( false );
+        
+        if (Global.Server)
+            m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal, Global.playerSpawnPosition, Quaternion.identity );
     }
     
     private Socket m_socket;
