@@ -51,6 +51,8 @@ public class FPSController : MonoBehaviour
     {
         m_gameManager = GameObject.FindObjectOfType<GameManager>();
         m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.1f );
+        m_audio =GetComponents<AudioSource>()[2];
+        
     }
 
     void Update()
@@ -119,6 +121,18 @@ public class FPSController : MonoBehaviour
 
                 transform.Translate( new Vector3( (m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime) * -1, 0, (m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime) * -1 ) );
             }
+            if(transform.position.y < -1 && transform.position.y > -10 )
+            {
+                if( !m_audio.isPlaying )
+                {
+                    m_audio.Play();
+                    m_audio.loop=true;
+                }
+            }
+            else
+            {
+                m_audio.Stop();
+            }
         }
     }
 
@@ -149,6 +163,8 @@ public class FPSController : MonoBehaviour
     }
 
     #endregion
+
+    private AudioSource m_audio;
 }
 
 

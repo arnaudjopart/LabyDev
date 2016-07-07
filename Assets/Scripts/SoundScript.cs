@@ -12,6 +12,7 @@ public class SoundScript : MonoBehaviour {
     public AudioClip m_paAnnounce2;
     //public AudioClip m_paAnnounce3;
     public static AudioClip m_deathSound;
+    
     #endregion
 
     #region Main Methdos
@@ -25,7 +26,8 @@ public class SoundScript : MonoBehaviour {
         m_Audio4 = audioSources[ 3 ];
         m_Audio5 = audioSources[ 4 ];
         m_Audio6 = audioSources[ 5 ];
-        m_playerPos = gameObject.GetComponent<Transform>();
+      
+        
     }
 
     void Start()
@@ -38,13 +40,14 @@ public class SoundScript : MonoBehaviour {
         m_Audio2.Play();
         m_Audio2.loop=true;
        
-        pos = new Vector3( m_playerPos.position.x, m_playerPos.position.y, m_playerPos.position.z );
+
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        
+       
+
         pos = m_playerPos.position;
         if( elapsedTime > 20 )
         {
@@ -91,6 +94,7 @@ public class SoundScript : MonoBehaviour {
                 default:
                     break;
             }
+     
             if( GameManager.IsGameOver )
             {
                 
@@ -129,7 +133,8 @@ public class SoundScript : MonoBehaviour {
     private AudioSource m_Audio4;
     private AudioSource m_Audio5;
     public static AudioSource m_Audio6;
-    
+   
+
 
     private Vector3 pos;
     private float elapsedTime = 0f;
