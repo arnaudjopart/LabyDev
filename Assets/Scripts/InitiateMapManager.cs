@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class InitiateMapManager : MonoBehaviour {
+public class InitiateMapManager : MonoBehaviour
+{
     #region Public and Protected Members
     public int m_mapWidth = 8;
     public int m_mapHeigt = 4;
@@ -13,22 +14,21 @@ public class InitiateMapManager : MonoBehaviour {
     public Transform m_endRoomPrefab;
     public Transform m_normalRoomPrefab;
 
-    
+    public List<Room> m_rooms = new List<Room>();
     #endregion
 
     #region Main Methods
-    // Use this for initialization
     void Start()
-    {       
-       foreach(  Transform item in transform )
+    {
+        foreach(  Transform item in transform )
         {
             m_rooms.Add( new Room(item, item.name ));
         }
+
         //debugInfoRoom();
         InitiateMap();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -36,15 +36,17 @@ public class InitiateMapManager : MonoBehaviour {
     #endregion
 
     #region Utils
-    private void debugInfoRoom() {
+    private void debugInfoRoom()
+    {
         foreach( var item in m_rooms )
         {
             Debug.Log( item.ToString() );
         }
     }
-    private void InitiateMap() {
+
+    private void InitiateMap()
+    {
         int tmpIdx;
-        Color tmpColor;
 
         // List index room
         List<int> idxToDistribute = new List<int>(m_rooms.Count);
@@ -90,72 +92,88 @@ public class InitiateMapManager : MonoBehaviour {
 
             m_rooms[ idxToDistribute[ tmpIdx ] ].RoomType = TypeRoom.dangerRoom;
             idxToDistribute[ tmpIdx ] = -1;
-
         }
-        //int[] idxSafeRoom = new int[m_nbSafeRoom];
-        //int[] idxDangerRoom = new int[m_nbDangerRoom];
-        // StartPlayer
+
+        GenerateMap();
+    }
+    
+    public void GenerateMap()
+    {
         Transform room;
         for( int i = 0; i < m_rooms.Count; i++ )
         {
-            switch( m_rooms[i].RoomType )
+            switch( m_rooms[ i ].RoomType )
             {
                 case TypeRoom.defaultRoom:
-                    tmpColor = Color.gray;
-
                     room = Instantiate( m_normalRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
                     room.SetParent( m_rooms[ i ].Transform, false );
-
                     break;
-                case TypeRoom.safeRoom:
-                    tmpColor = Color.green;
 
+                case TypeRoom.safeRoom:
                     room = Instantiate( m_endRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
                     room.SetParent( m_rooms[ i ].Transform, false );
-
                     break;
-                case TypeRoom.dangerRoom:
-                    tmpColor = Color.red;
 
+                case TypeRoom.dangerRoom:
                     int rand = Random.Range(0, m_trapRoomPrefabs.Length);
 
                     room = Instantiate( m_trapRoomPrefabs[ rand ], Vector3.zero, Quaternion.identity ) as Transform;
                     room.SetParent( m_rooms[ i ].Transform, false );
-                    
-                    
-                    //trap.position = Vector3.zero;
-
-
-                    //Debug.Log( "Room " + i + " ---> piège " + rand );
-
                     break;
-                case TypeRoom.startRoom:
-                    tmpColor = Color.white;
 
+                case TypeRoom.startRoom:
                     room = Instantiate( m_startRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
                     room.SetParent( m_rooms[ i ].Transform, false );
-
                     break;
+
                 default:
-                    tmpColor = Color.black;
+                    
                     break;
             }
 
-            m_rooms[ i ].m_icon.GetComponent<MeshRenderer>().materials[ 0 ].SetColor( "_Color", tmpColor );
+            if (Global.Server)
+                ApplyIconColor( i, (int)m_rooms[ i ].RoomType );
+            else
+                ApplyIconColor( i, -1 );
         }
     }
     
+    public void ApplyIconColor(int _room, int _color)
+    {
+        m_rooms[ _room ].m_icon.GetComponent<MeshRenderer>().materials[ 0 ].SetColor( "_Color", GetColor( _color ) );
+    }
+
+    public Color GetColor(int _id)
+    {
+        Color ResultColor = Color.black;
+
+        switch (_id)
+        {
+            case 0:
+                ResultColor = Color.gray;
+                break;
+            case 1:
+                ResultColor = Color.green;
+                break;
+            case 2:
+                ResultColor = Color.red;
+                break;
+            case 3:
+                ResultColor = Color.white;
+                break;
+            default:
+
+                break;
+        }
+
+        return ResultColor;
+    }
     #endregion
 
     #region Private Members
-    private List<Room> m_rooms = new List<Room>();
     private Transform m_startRoom;
-
-    // ---------------------------------
+    
     private const int m_nbSafeRoom = 2;
-    
-    
-
     #endregion
 
 }
