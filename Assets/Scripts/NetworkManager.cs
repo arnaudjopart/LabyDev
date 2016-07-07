@@ -67,6 +67,7 @@ public class NetworkManager : MonoBehaviour
                 if( m_IsServer )
                 {
                     Send( 1, GetBytes( m_FpsLocal.transform.position ) );
+                    Send( 6, GetBytes( m_FpsLocal.transform.rotation ) );
                 }
 
                 Receive();
@@ -221,6 +222,12 @@ public class NetworkManager : MonoBehaviour
         {
             m_mapManager.ApplyIconColor( _packet[ 1 ], _packet[ 2 ] );
         }
+        else
+        if( _packet[ 0 ] == 6 ) //FPS Rotation
+        {
+            Quaternion rotation = GetQuaternion( SubPacket( _packet, 1, _packet.Length - 1 ) );
+            m_FpsIcon.transform.rotation = rotation;
+        }
     }
     #endregion
 
@@ -295,6 +302,18 @@ public class NetworkManager : MonoBehaviour
         return result;
     }
 
+    private static byte[] GetBytes( Quaternion _value )
+    {
+        byte[] result = new byte[16];
+
+        GetBytes( _value.x ).CopyTo( result, 0 );
+        GetBytes( _value.y ).CopyTo( result, 4 );
+        GetBytes( _value.z ).CopyTo( result, 8 );
+        GetBytes( _value.w ).CopyTo( result, 12 );
+
+        return result;
+    }
+
     private static Vector3 GetVector3(byte[] _value)
     {
         float x = GetFloat( SubPacket( _value, 0, 4 ));
@@ -302,6 +321,16 @@ public class NetworkManager : MonoBehaviour
         float z = GetFloat( SubPacket( _value, 8, 4 ));
 
         return new Vector3( x, y, z);
+    }
+
+    private static Quaternion GetQuaternion( byte[] _value )
+    {
+        float x = GetFloat( SubPacket( _value, 0, 4 ));
+        float y = GetFloat( SubPacket( _value, 4, 4 ));
+        float z = GetFloat( SubPacket( _value, 8, 4 ));
+        float w = GetFloat( SubPacket( _value, 12, 4 ));
+
+        return new Quaternion( x, y, z, w );
     }
     #endregion
 
