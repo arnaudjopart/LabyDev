@@ -34,6 +34,7 @@ public class FPSController : MonoBehaviour
     public bool m_canFlash;
     public bool m_waitCoroutine;
 
+
     public bool m_isAlive;
 
     public float m_speed;
@@ -50,7 +51,7 @@ public class FPSController : MonoBehaviour
     void Start()
     {
         m_gameManager = GameObject.FindObjectOfType<GameManager>();
-        m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.1f );
+        m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f,1.0f, 0.2f );
         m_audio =GetComponents<AudioSource>()[2];
         
     }
