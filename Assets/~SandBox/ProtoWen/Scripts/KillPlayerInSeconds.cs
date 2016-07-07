@@ -11,7 +11,6 @@ public class KillPlayerInSeconds : MonoBehaviour {
 
     #region Main Methods
 
-<<<<<<< HEAD:Prototype/Safe room and traps/Assets/ProtoWen/Scripts/KillPlayer.cs
     /// <summary>
     /// Destroy player on collision
     /// </summary>
@@ -20,11 +19,7 @@ public class KillPlayerInSeconds : MonoBehaviour {
     {
         Destroy( _other.gameObject );
     }
-=======
 
-    // TODO 
-    // Kill the player on collide
->>>>>>> dab33c5e316188dfe1a6ce53cecd3b2c010a5aa4:Assets/~SandBox/ProtoWen/Scripts/KillPlayerInSeconds.cs
 
     #endregion
 
