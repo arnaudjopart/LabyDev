@@ -48,7 +48,7 @@ public class SoundScript : MonoBehaviour {
         elapsedTime += Time.deltaTime;
        
 
-        pos = m_playerPos.position;
+        //pos = m_playerPos.position;
         if( elapsedTime > 20 )
         {
 
