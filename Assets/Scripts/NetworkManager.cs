@@ -9,6 +9,7 @@ using System.Text;
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager m_instance;
+    public GameObject m_UIGSM;
 
     public GameObject m_ConnectionFrame;
 
