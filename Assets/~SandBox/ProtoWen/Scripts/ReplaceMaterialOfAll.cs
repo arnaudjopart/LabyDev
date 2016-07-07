@@ -15,6 +15,7 @@ public class ReplaceMaterialOfAll : MonoBehaviour
             if( obj.name == m_nameOfObjects )
             {
                 obj.GetComponent<Renderer>().material = m_materialToReplaceBy;
+                m_allObjects.Add( obj );
             }
         }
     }

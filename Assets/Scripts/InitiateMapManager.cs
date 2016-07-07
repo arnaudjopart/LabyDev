@@ -12,7 +12,7 @@ public class InitiateMapManager : MonoBehaviour
     public Transform[] m_trapRoomPrefabs;
     public Transform m_startRoomPrefab;
     public Transform m_endRoomPrefab;
-    public Transform m_normalRoomPrefab;
+    public Transform[] m_normalRoomPrefab;
 
     public List<Room> m_rooms = new List<Room>();
     #endregion
@@ -20,18 +20,18 @@ public class InitiateMapManager : MonoBehaviour
     #region Main Methods
     void Start()
     {
-        foreach(  Transform item in transform )
+        foreach( Transform item in transform )
         {
-            m_rooms.Add( new Room(item, item.name ));
+            m_rooms.Add( new Room( item, item.name ) );
         }
 
         //debugInfoRoom();
         InitiateMap();
     }
-    
+
     void Update()
     {
-        
+
     }
     #endregion
 
@@ -59,18 +59,18 @@ public class InitiateMapManager : MonoBehaviour
         List<int> idxCornerMap = new List<int>();
         idxCornerMap.Add( 0 );
         idxCornerMap.Add( m_rooms.Count - 1 );
-        idxCornerMap.Add( m_mapWidth - 1);
-        idxCornerMap.Add((m_rooms.Count  - m_mapWidth  ));
+        idxCornerMap.Add( m_mapWidth - 1 );
+        idxCornerMap.Add( (m_rooms.Count - m_mapWidth) );
         //Debug.Log( idxCornerMap[ 0 ] + " " + idxCornerMap[ 1 ] + " " + idxCornerMap[ 2 ] + " " + idxCornerMap[ 3 ] + " " );
 
         // Start Room
         tmpIdx = Random.Range( 0, idxCornerMap.Count );
-        m_rooms[ idxCornerMap[tmpIdx] ].RoomType = TypeRoom.startRoom;
+        m_rooms[ idxCornerMap[ tmpIdx ] ].RoomType = TypeRoom.startRoom;
         Vector3 spawnPosition = m_rooms[ idxCornerMap[ tmpIdx ]].Transform.position;
         spawnPosition.Set( spawnPosition.x, spawnPosition.y + 2, spawnPosition.z );
-        Global.playerSpawnPosition = spawnPosition; 
-        idxToDistribute[idxCornerMap [tmpIdx] ] = -1;
-        idxCornerMap[tmpIdx ] = -1;
+        Global.playerSpawnPosition = spawnPosition;
+        idxToDistribute[ idxCornerMap[ tmpIdx ] ] = -1;
+        idxCornerMap[ tmpIdx ] = -1;
 
         // Safe Room
         for( int i = 0; i < m_nbSafeRoom; i++ )
@@ -79,8 +79,8 @@ public class InitiateMapManager : MonoBehaviour
                 tmpIdx = Random.Range( 0, idxCornerMap.Count );
             while( idxCornerMap[ tmpIdx ] == -1 );
             m_rooms[ idxCornerMap[ tmpIdx ] ].RoomType = TypeRoom.safeRoom;
-            idxToDistribute[idxCornerMap[ tmpIdx ]] = -1;
-            idxCornerMap[tmpIdx ] = -1;
+            idxToDistribute[ idxCornerMap[ tmpIdx ] ] = -1;
+            idxCornerMap[ tmpIdx ] = -1;
         }
 
         // Danger Room
@@ -96,7 +96,7 @@ public class InitiateMapManager : MonoBehaviour
 
         GenerateMap();
     }
-    
+
     public void GenerateMap()
     {
         Transform room;
@@ -105,7 +105,9 @@ public class InitiateMapManager : MonoBehaviour
             switch( m_rooms[ i ].RoomType )
             {
                 case TypeRoom.defaultRoom:
-                    room = Instantiate( m_normalRoomPrefab, Vector3.zero, Quaternion.identity ) as Transform;
+                    int rand1 = Random.Range(0, m_normalRoomPrefab.Length);
+
+                    room = Instantiate( m_normalRoomPrefab[ rand1 ], Vector3.zero, Quaternion.identity ) as Transform;
                     room.SetParent( m_rooms[ i ].Transform, false );
                     break;
 
@@ -127,27 +129,27 @@ public class InitiateMapManager : MonoBehaviour
                     break;
 
                 default:
-                    
+
                     break;
             }
 
-            if (Global.Server)
+            if( Global.Server )
                 ApplyIconColor( i, (int)m_rooms[ i ].RoomType );
             else
                 ApplyIconColor( i, -1 );
         }
     }
-    
-    public void ApplyIconColor(int _room, int _color)
+
+    public void ApplyIconColor( int _room, int _color )
     {
         m_rooms[ _room ].m_icon.GetComponent<MeshRenderer>().materials[ 0 ].SetColor( "_Color", GetColor( _color ) );
     }
 
-    public Color GetColor(int _id)
+    public Color GetColor( int _id )
     {
         Color ResultColor = Color.black;
 
-        switch (_id)
+        switch( _id )
         {
             case 0:
                 ResultColor = Color.gray;
@@ -172,7 +174,7 @@ public class InitiateMapManager : MonoBehaviour
 
     #region Private Members
     private Transform m_startRoom;
-    
+
     private const int m_nbSafeRoom = 2;
     #endregion
 
