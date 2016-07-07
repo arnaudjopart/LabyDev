@@ -5,7 +5,7 @@ public class KillPlayerInSeconds : MonoBehaviour {
 
     #region Public & Protected Members
 
-
+    public float m_maxTimer ;
 
     #endregion
 
@@ -17,9 +17,34 @@ public class KillPlayerInSeconds : MonoBehaviour {
     /// <param name="_other">The object that collide</param>
     void OnTriggerEnter( Collider _other )
     {
-        Destroy( _other.gameObject );
+        print( "collision Enter with " + _other.name );
+        m_actualTimer = 0f;
     }
 
+    void OnTriggerStay(Collider _other )
+    {
+        print( "collision Stay with " +  m_actualTimer);
+
+        if(m_actualTimer <= m_maxTimer )
+        {
+            m_actualTimer += Time.deltaTime;
+        }
+        else
+        {
+            if( _other.GetComponent<FPSController>() )
+            {
+               
+                GameManager.GameOver();
+
+            }
+
+        }
+    }
+
+    void OnTriggerExit( Collider _other )
+    {
+        print( "collision Exit with " + _other.name );
+    }
 
     #endregion
 
@@ -31,5 +56,6 @@ public class KillPlayerInSeconds : MonoBehaviour {
 
     #region Private Members
 
+    private float m_actualTimer = 0f;
     #endregion
 }
