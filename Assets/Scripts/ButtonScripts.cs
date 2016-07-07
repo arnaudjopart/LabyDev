@@ -86,6 +86,14 @@ public class ButtonScripts : MonoBehaviour
             }
             StartCoroutine( LoadScene( 0, 2f ) );
         }
+        if( buttonId == 5 ) // back to the menu
+        {
+            if( m_click != null )
+            {
+                m_click.Play();
+            }
+            StartCoroutine( LoadScene( 3, 2f ) );
+        }
     }
 
     IEnumerator LoadScene(int index, float delayTime)
