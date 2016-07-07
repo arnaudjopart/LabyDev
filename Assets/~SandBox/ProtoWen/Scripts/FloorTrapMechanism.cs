@@ -7,8 +7,9 @@ public class FloorTrapMechanism : MonoBehaviour {
 
     [Range(1, 10)]
     public float m_fallingSpeed;
-    [HideInInspector]
+
     public GameObject m_floor;
+    public GameObject m_blockingVol;
 
     #endregion
 
@@ -23,9 +24,13 @@ public class FloorTrapMechanism : MonoBehaviour {
     void Update()
     {
         // Floor fall when activated
-        if( m_isActive && m_floorTransform.position.y > 0f)
+        if( m_isActive && m_floorTransform.localPosition.y > 5f)
         {
-            m_floorTransform.position = new Vector3( m_floorTransform.position.x, m_floorTransform.position.y -(Time.deltaTime * m_fallingSpeed) , m_floorTransform.position.z );
+            m_floorTransform.localPosition = new Vector3( m_floorTransform.localPosition.x, m_floorTransform.localPosition.y -(Time.deltaTime * m_fallingSpeed) , m_floorTransform.localPosition.z );
+        }else if( m_isActive )
+        {
+            m_blockingVol.SetActive( true );
+            Destroy( m_floor );
         }
     }
 
