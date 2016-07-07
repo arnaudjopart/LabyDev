@@ -10,7 +10,7 @@ public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager m_instance;
 
-    public Canvas m_ConnectionFrame;
+    public GameObject m_ConnectionFrame;
 
     public GameObject m_prefabFpsLocal;
     public GameObject m_prefabFpsIcon;
@@ -101,7 +101,7 @@ public class NetworkManager : MonoBehaviour
     private void InitFpsPlayer()
     {
         m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal , Global.playerSpawnPosition, Quaternion.identity);
-        m_ConnectionFrame.enabled = false;
+        m_ConnectionFrame.SetActive( false );
     }
     #endregion
 
@@ -121,7 +121,7 @@ public class NetworkManager : MonoBehaviour
                 Debug.Log( "Connected" );
                 m_IsConnected = true;
 
-                m_ConnectionFrame.enabled = false;
+                m_ConnectionFrame.SetActive( false );
 
                 m_FpsIcon = Instantiate( m_prefabFpsIcon );
                 m_Monitor = Instantiate( m_prefabMonitor );
