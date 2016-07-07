@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class WinGame : MonoBehaviour {
-
+    public AudioSource m_winSound;
 	// Use this for initialization
 	void Start () {
-	
+        m_winSound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -14,8 +14,11 @@ public class WinGame : MonoBehaviour {
 	}
     void OnTriggerEnter(Collider _other)
     {
+        m_winSound.Play();
         print( "You win" );
         GameManager.m_player1Win = true;
         GameManager.GameOver();
     }
+
+   
 }

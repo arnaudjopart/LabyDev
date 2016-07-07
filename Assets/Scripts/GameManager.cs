@@ -36,7 +36,11 @@ public class GameManager : MonoBehaviour
 
         if( Global.Server )
         {
-            SoundScript.PlayDeathSound();
+            if(!m_player1Win )
+            {
+                SoundScript.PlayDeathSound();
+            }
+            
             GameManager.s_instance.m_networkManager.SendGameOver();
         }
                 
