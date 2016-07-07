@@ -23,7 +23,7 @@ public class ReplaceGameObjects : ScriptableWizard
             GameObject newObject;
             newObject = (GameObject)EditorUtility.InstantiatePrefab( NewType );
             newObject.transform.position = go.transform.position;
-            newObject.transform.rotation = go.transform.rotation*Quaternion.Euler(0,-90,0);
+            newObject.transform.rotation = go.transform.rotation/**Quaternion.Euler(0,-90,0)*/;
             newObject.transform.parent = go.transform.parent;
 
             DestroyImmediate( go );
