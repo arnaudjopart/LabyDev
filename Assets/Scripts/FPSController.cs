@@ -109,6 +109,7 @@ public class FPSController : MonoBehaviour
             if ( Input.GetKey( "up" ) )
             {
                 transform.Translate( new Vector3( m_cibleTop.transform.localPosition.x * m_speed * Time.deltaTime, 0, m_cibleTop.transform.localPosition.z * m_speed * Time.deltaTime ) );
+               
             }
 
             if ( Input.GetKey( "right" ) )
