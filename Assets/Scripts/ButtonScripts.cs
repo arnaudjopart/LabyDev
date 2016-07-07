@@ -11,10 +11,12 @@ public class ButtonScripts : MonoBehaviour
     public AudioClip m_clickSound;
     public Animator m_viewAnim;
     public Animator m_connectViewAnim;
+    public Animator m_canvasAnim;
 
 
     void Start()
     {
+        
         GetComponent<Button>().onClick.AddListener( () => Clicked() );
         m_click = Instantiate( m_clickSoundSource ) as AudioSource;
         m_click.GetComponent<AudioSource>();
@@ -49,6 +51,10 @@ public class ButtonScripts : MonoBehaviour
             m_click.Play();
 
             Global.Server = true;
+            if (m_canvasAnim)
+            {
+                m_canvasAnim.SetTrigger("FadeOutTrigger");
+            }
             StartCoroutine( LoadScene( 1, 2f ) );
         }
 
@@ -59,8 +65,11 @@ public class ButtonScripts : MonoBehaviour
                 m_click.Play();
             }
             Global.Server = false;
-
-            if( m_IpEntry.text != "" )
+            if (m_canvasAnim)
+            {
+                m_canvasAnim.SetTrigger("FadeOutTrigger");
+            }
+            if ( m_IpEntry.text != "" )
                 Global.Ip = m_IpEntry.text;
 
             StartCoroutine( LoadScene( 1, 2f ) );
@@ -86,13 +95,26 @@ public class ButtonScripts : MonoBehaviour
             }
             StartCoroutine( LoadScene( 0, 2f ) );
         }
-        if( buttonId == 5 ) // back to the menu
+        if( buttonId == 5 ) // Credit Scene
         {
             if( m_click != null )
             {
                 m_click.Play();
             }
             StartCoroutine( LoadScene( 3, 2f ) );
+        }
+        if (buttonId == 6) // Quit
+        {
+            if (m_click != null)
+            {
+                m_click.Play();
+            }
+            if (m_canvasAnim)
+            {
+                m_canvasAnim.SetTrigger("FadeOutTrigger");
+            }
+            StartCoroutine("ExitGame");                      
+
         }
     }
 
@@ -101,6 +123,12 @@ public class ButtonScripts : MonoBehaviour
         yield return new WaitForSeconds( delayTime );
         SceneManager.LoadScene( index );
     }
+    IEnumerator ExitGame()
+    {
+        yield return new WaitForSeconds(2f);
+        Application.Quit();
+    }
 
     private AudioSource m_click;
+    
 }
