@@ -16,9 +16,14 @@ public class KillPlayer : MonoBehaviour {
     // Kill the player on collide
     void OnTriggerEnter(Collider _other)
     {
+        print( "collision with " + _other.name );
+        if( _other.GetComponent<FPSController>() )
+        {
+            //print( "collision wirh player"+_other.name);//Destroy( _other.gameObject );
+            GameManager.GameOver();
+            
+        }
         
-        //Destroy( _other.gameObject );
-        GameManager.GameOver();
 
     }
     #endregion
