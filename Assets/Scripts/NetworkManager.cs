@@ -5,14 +5,15 @@ using System.Net;
 using System;
 using UnityEngine.SceneManagement;
 using System.Text;
+using UnityEngine.UI;
 
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager m_instance;
-    public GameObject m_UIGSM;
 
     public GameObject m_ConnectionFrame;
-
+    public GameObject m_UIGSM;
+    
     public GameObject m_prefabFpsLocal;
     public GameObject m_prefabFpsIcon;
     public GameObject m_prefabMonitor;
@@ -29,6 +30,8 @@ public class NetworkManager : MonoBehaviour
         {
             m_instance = this;
         }
+
+        m_msgconnection = m_ConnectionFrame.GetComponentInChildren<Text>();
 
         if( Global.Server )
             StartServer();
@@ -49,6 +52,7 @@ public class NetworkManager : MonoBehaviour
                     if (!m_IsServer)
                     {
                         SendObjectif( GameManager.m_player2Objective );
+                        StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
                     }
 
                     m_showConnect = true;
@@ -101,8 +105,9 @@ public class NetworkManager : MonoBehaviour
 
     private void InitFpsPlayer()
     {
+        m_msgconnection.text = "Staring Server ...";
         m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal , Global.playerSpawnPosition, Quaternion.identity);
-        m_ConnectionFrame.SetActive( false );
+        StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
     }
     #endregion
 
@@ -113,6 +118,8 @@ public class NetworkManager : MonoBehaviour
 
         m_socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
 
+        m_msgconnection.text = "Try connect to " + m_Ip;
+
         try
         {
             m_socket.Connect( localEndPoint );
@@ -122,7 +129,7 @@ public class NetworkManager : MonoBehaviour
                 Debug.Log( "Connected" );
                 m_IsConnected = true;
 
-                m_ConnectionFrame.SetActive( false );
+                m_UIGSM.SetActive( false );
 
                 m_FpsIcon = Instantiate( m_prefabFpsIcon );
                 m_Monitor = Instantiate( m_prefabMonitor );
@@ -309,6 +316,12 @@ public class NetworkManager : MonoBehaviour
         m_lenghtPacket = -1;
         GameManager.IsGameOver = false;
     }
+
+    private IEnumerator WaitAndRemoveUIConnection( float _waitTime )
+    {
+        yield return new WaitForSeconds( _waitTime );
+        m_ConnectionFrame.SetActive( false );
+    }
     
     private Socket m_socket;
     private int m_lenghtPacket;
@@ -317,5 +330,6 @@ public class NetworkManager : MonoBehaviour
     private GameObject m_FpsIcon;
     private GameObject m_Monitor;
 
+    private Text m_msgconnection;
     private bool m_showConnect;
 }
