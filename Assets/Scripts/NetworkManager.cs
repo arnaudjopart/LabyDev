@@ -27,7 +27,7 @@ public class NetworkManager : MonoBehaviour
 
     void Start ()
     {
-	    if ( !m_instance )
+        if( !m_instance )
         {
             m_instance = this;
         }
@@ -87,7 +87,10 @@ public class NetworkManager : MonoBehaviour
         IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 7777);
         
         m_socket = new Socket( AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp );
-        
+
+        m_socket.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.DontLinger, true );
+        m_socket.SetSocketOption( SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true );
+
         m_socket.Bind( localEndPoint );
 
         m_socket.Listen( 100 );
@@ -368,6 +371,15 @@ public class NetworkManager : MonoBehaviour
         m_Ip = "127.0.0.1";
         m_lenghtPacket = -1;
         GameManager.IsGameOver = false;
+    }
+    
+    public void CloseSocket()
+    {
+        if (m_socket.Connected)
+        {
+            m_socket.Shutdown( SocketShutdown.Both );
+            m_socket.Disconnect( true );
+        }
     }
 
     private IEnumerator WaitAndRemoveUIConnection( float _waitTime )

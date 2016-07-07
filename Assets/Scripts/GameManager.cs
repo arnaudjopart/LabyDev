@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
 
         Debug.Log( "GameOver" );
-
+        
         if( Global.Server )
         {
             if(!m_player1Win )
@@ -43,7 +43,9 @@ public class GameManager : MonoBehaviour
             
             GameManager.s_instance.m_networkManager.SendGameOver();
         }
-                
+
+        NetworkManager.m_instance.CloseSocket();
+
         GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
     }
 
