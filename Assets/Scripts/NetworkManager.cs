@@ -63,9 +63,6 @@ public class NetworkManager : MonoBehaviour
                 }
 
                 Receive();
-
-                if( !m_socket.Connected )
-                    Close();
             }
             catch
             {
