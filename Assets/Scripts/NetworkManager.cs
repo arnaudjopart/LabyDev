@@ -49,18 +49,6 @@ public class NetworkManager : MonoBehaviour
                 if (!m_showConnect)
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
-
-                    if (!m_IsServer)
-                    {
-                        SendObjectif( GameManager.m_player2Objective );
-                        StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
-                    }
-                    else
-                    {
-                        for( int i = 0; i < m_mapManager.m_rooms.Count; i++ )
-                            SendTypeRoom( i, (int)m_mapManager.m_rooms[ i ].RoomType );
-                    }
-
                     m_showConnect = true;
                 }
 
@@ -142,6 +130,10 @@ public class NetworkManager : MonoBehaviour
 
                 m_FpsIcon = Instantiate( m_prefabFpsIcon );
                 m_Monitor = Instantiate( m_prefabMonitor );
+
+                SendObjectif( GameManager.m_player2Objective );
+                StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
+                RequestMapInfo();
             }
         }
         catch
@@ -235,6 +227,12 @@ public class NetworkManager : MonoBehaviour
         {
             GameManager.m_player1Win = true;
         }
+        else
+        if ( _packet[0] == 8)
+        {
+            for( int i = 0; i < m_mapManager.m_rooms.Count; i++ )
+                SendTypeRoom( i, (int)m_mapManager.m_rooms[ i ].RoomType );
+        }
     }
     #endregion
 
@@ -272,6 +270,11 @@ public class NetworkManager : MonoBehaviour
     public void SendPlayerWin()
     {
         Send( 7, new byte[] { 0 } );
+    }
+
+    public void RequestMapInfo()
+    {
+        Send( 8, new byte[] { 0 } );
     }
     #endregion
 
