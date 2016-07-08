@@ -48,6 +48,7 @@ public class NetworkManager : MonoBehaviour
             {
                 if (!m_showConnect)
                 {
+                    lastPing = Time.realtimeSinceStartup;
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
                     m_showConnect = true;
                 }
@@ -57,12 +58,13 @@ public class NetworkManager : MonoBehaviour
                     Send( 1, GetBytes( m_FpsLocal.transform.position ) );
                     Send( 6, GetBytes( m_FpsLocal.transform.rotation ) );
                 }
-                else
-                {
-                    SendPing();
-                }
+
+                SendPing();
 
                 Receive();
+
+                if (Time.realtimeSinceStartup > lastPing + 2.0f)
+                    Close();
             }
             catch
             {
@@ -246,12 +248,19 @@ public class NetworkManager : MonoBehaviour
             GameManager.m_player1Win = true;
         }
         else
-        if ( _packet[0] == 8)
+        if ( _packet[0] == 8) //Send Map info
         {
             for( int i = 0; i < m_mapManager.m_rooms.Count; i++ )
                 SendTypeRoom( i, (int)m_mapManager.m_rooms[ i ].RoomType );
         }
+        else
+        if( _packet[ 0 ] == 9 ) //ping
+        {
+            lastPing = Time.realtimeSinceStartup;
+        }
     }
+
+    public float lastPing; 
     #endregion
 
     #region Send
