@@ -147,7 +147,7 @@ public class NetworkManager : MonoBehaviour
         catch
         {
             Debug.Log( "Time Out !" );
-            SceneManager.LoadScene( 0 );
+            SceneManager.LoadScene( 1 );
         }
     }
     #endregion
