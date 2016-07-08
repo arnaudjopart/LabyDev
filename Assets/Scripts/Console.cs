@@ -5,12 +5,11 @@ using UnityEngine.UI;
 public class Console : MonoBehaviour
 {
     InputField m_console;
-    Text m_objectif;
+    public Text m_objectif;
     
 	void Start ()
     {
         m_console = GetComponent<InputField>();
-        m_objectif = GetComponent<Text>();
     }
 	
 	void Update ()
