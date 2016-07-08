@@ -42,11 +42,11 @@ public class NetworkManager : MonoBehaviour
 
     void Update ()
     {
-        if (m_IsConnected)
+        if (m_IsConnected && m_socket.Connected)
         {
             try
             {
-                if (!m_showConnect)
+                if( !m_showConnect )
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
                     m_showConnect = true;
@@ -67,20 +67,23 @@ public class NetworkManager : MonoBehaviour
             catch
             {
                 m_IsConnected = false;
-                m_showConnect = false;
+            }
+        }
+        else
+        {
+            m_showConnect = false;
 
-                if (!m_IsServer)
-                    SceneManager.LoadScene( 1 );
+            if( !m_IsServer )
+                SceneManager.LoadScene( 1 );
 
-                m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
+            m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
 
-                if( m_IsServer )
-                {
-                    ResetNetwork();
-                    m_IsServer = true;
+            if( m_IsServer )
+            {
+                ResetNetwork();
+                m_IsServer = true;
 
-                    InitServer();
-                }
+                InitServer();
             }
         }
 	}
