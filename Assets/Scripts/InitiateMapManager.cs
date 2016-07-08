@@ -161,7 +161,7 @@ public class InitiateMapManager : MonoBehaviour
                 ResultColor = Color.red;
                 break;
             case 3:
-                ResultColor = Color.white;
+                ResultColor = Color.blue;
                 break;
             default:
 

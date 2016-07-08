@@ -50,6 +50,7 @@ public class FPSController : MonoBehaviour
     #region Main Methods
     void Start()
     {
+        Cursor.visible = false;
         m_gameManager = GameObject.FindObjectOfType<GameManager>();
         m_cone.GetComponent<Renderer>().material.color = new Color( 1.0f, 1.0f, 1.0f, 0.2f );
 
