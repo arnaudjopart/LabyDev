@@ -131,7 +131,10 @@ public class FPSController : MonoBehaviour
             {
                 if ( !m_audio.isPlaying )
                 {
+
+                    m_audio.volume = .5f;
                     m_audio.Play();
+                  
                     m_audio.loop = true;
                 }
             }
