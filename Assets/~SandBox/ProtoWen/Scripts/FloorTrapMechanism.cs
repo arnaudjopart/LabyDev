@@ -30,7 +30,7 @@ public class FloorTrapMechanism : MonoBehaviour {
         }else if( m_isActive )
         {
             m_blockingVol.SetActive( true );
-            Destroy( m_floor );
+            m_floor.SetActive( false );
         }
     }
 

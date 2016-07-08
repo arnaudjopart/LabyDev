@@ -50,6 +50,7 @@ public class NetworkManager : MonoBehaviour
                 {
                     lastPing = Time.realtimeSinceStartup;
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
+                    
                     m_showConnect = true;
                 }
 
@@ -58,6 +59,9 @@ public class NetworkManager : MonoBehaviour
                     Send( 1, GetBytes( m_FpsLocal.transform.position ) );
                     Send( 6, GetBytes( m_FpsLocal.transform.rotation ) );
                 }
+                
+                if( !m_IsServer )
+                    SendObjectif( GameManager.m_player2Objective );
 
                 SendPing();
 

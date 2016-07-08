@@ -14,14 +14,13 @@ public class Console : MonoBehaviour
 	
 	void Update ()
     {
-        if( GameManager.m_player2Objective == 1 && m_objectif.text != "Save Dexter" )
+        if( GameManager.m_player2Objective == 1 )
         {
             m_objectif.text = "Save Dexter";
         }
         else
         {
-            if ( m_objectif.text != "Kill Dexter")
-                m_objectif.text = "Kill Dexter";
+            m_objectif.text = "Kill Dexter";
         }
         
         if (Input.GetKeyDown(KeyCode.Return) && m_console.text != "" )

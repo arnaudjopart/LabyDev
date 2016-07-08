@@ -11,6 +11,7 @@ public class ShowRapportGame : MonoBehaviour {
 
     #region Main Methods
     void Start() {
+        Cursor.visible = true;
         m_viewRapport = GameObject.Find( "ViewRapportGame" ).GetComponent<Transform>();
         
         m_viewRetryAnim = m_viewRetry.GetComponent<Animator>();
@@ -50,7 +51,7 @@ public class ShowRapportGame : MonoBehaviour {
         }
         if( m_deathPlayer1 && !m_objectivePlayer2 )
         {
-            m_rapportUI.text = "Player 1 won !";
+            m_rapportUI.text = "Player 2 won !";
         }
     }
     #endregion
