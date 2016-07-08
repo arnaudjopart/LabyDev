@@ -1,0 +1,634 @@
+fileFormatVersion: 2
+guid: aa8cbcd839e582243a1d89fe27b75ca7
+timeCreated: 1467961245
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: AbdomenA
+    100002: AbdomenB
+    100004: Bone001
+    100006: Bone002
+    100008: Bone003
+    100010: Bone004
+    100012: Bone005
+    100014: Bone006
+    100016: Bone007
+    100018: Bone008
+    100020: Bone009
+    100022: Bone010
+    100024: Bone011
+    100026: Bone012
+    100028: Bone013
+    100030: Bone014
+    100032: Bone015
+    100034: Bone016
+    100036: Bone017
+    100038: Bone018
+    100040: Bone019
+    100042: Bone020
+    100044: Bone021
+    100046: Bone022
+    100048: Bone023
+    100050: Bone024
+    100052: Bone025
+    100054: Bone026
+    100056: Bone027
+    100058: Bone028
+    100060: Bone029
+    100062: Bone030
+    100064: Bone031
+    100066: Bone032
+    100068: Bone033
+    100070: Bone034
+    100072: Bone035
+    100074: Bone036
+    100076: Bone037
+    100078: Bone038
+    100080: Bone039
+    100082: Bone040
+    100084: Bone043
+    100086: Box004
+    100088: Box006
+    100090: Box007
+    100092: Box008
+    100094: Box009
+    100096: Box010
+    100098: Box011
+    100100: Box012
+    100102: Box013
+    100104: Box014
+    100106: Box015
+    100108: Box016
+    100110: Box017
+    100112: Box018
+    100114: Box019
+    100116: Box020
+    100118: Box021
+    100120: Box022
+    100122: Box023
+    100124: Box024
+    100126: Box025
+    100128: Box026
+    100130: Box027
+    100132: Box028
+    100134: Box029
+    100136: Box030
+    100138: Box031
+    100140: Box032
+    100142: Box033
+    100144: Box034
+    100146: //RootNode
+    100148: IK Chain003
+    100150: Spider
+    100152: Spider001
+    400000: AbdomenA
+    400002: AbdomenB
+    400004: Bone001
+    400006: Bone002
+    400008: Bone003
+    400010: Bone004
+    400012: Bone005
+    400014: Bone006
+    400016: Bone007
+    400018: Bone008
+    400020: Bone009
+    400022: Bone010
+    400024: Bone011
+    400026: Bone012
+    400028: Bone013
+    400030: Bone014
+    400032: Bone015
+    400034: Bone016
+    400036: Bone017
+    400038: Bone018
+    400040: Bone019
+    400042: Bone020
+    400044: Bone021
+    400046: Bone022
+    400048: Bone023
+    400050: Bone024
+    400052: Bone025
+    400054: Bone026
+    400056: Bone027
+    400058: Bone028
+    400060: Bone029
+    400062: Bone030
+    400064: Bone031
+    400066: Bone032
+    400068: Bone033
+    400070: Bone034
+    400072: Bone035
+    400074: Bone036
+    400076: Bone037
+    400078: Bone038
+    400080: Bone039
+    400082: Bone040
+    400084: Bone043
+    400086: Box004
+    400088: Box006
+    400090: Box007
+    400092: Box008
+    400094: Box009
+    400096: Box010
+    400098: Box011
+    400100: Box012
+    400102: Box013
+    400104: Box014
+    400106: Box015
+    400108: Box016
+    400110: Box017
+    400112: Box018
+    400114: Box019
+    400116: Box020
+    400118: Box021
+    400120: Box022
+    400122: Box023
+    400124: Box024
+    400126: Box025
+    400128: Box026
+    400130: Box027
+    400132: Box028
+    400134: Box029
+    400136: Box030
+    400138: Box031
+    400140: Box032
+    400142: Box033
+    400144: Box034
+    400146: //RootNode
+    400148: IK Chain003
+    400150: Spider
+    400152: Spider001
+    2300000: AbdomenA
+    2300002: AbdomenB
+    2300004: Bone001
+    2300006: Bone002
+    2300008: Bone003
+    2300010: Bone004
+    2300012: Bone005
+    2300014: Bone006
+    2300016: Bone007
+    2300018: Bone008
+    2300020: Bone009
+    2300022: Bone010
+    2300024: Bone011
+    2300026: Bone012
+    2300028: Bone013
+    2300030: Bone014
+    2300032: Bone015
+    2300034: Bone016
+    2300036: Bone017
+    2300038: Bone018
+    2300040: Bone019
+    2300042: Bone020
+    2300044: Bone021
+    2300046: Bone022
+    2300048: Bone023
+    2300050: Bone024
+    2300052: Bone025
+    2300054: Bone026
+    2300056: Bone027
+    2300058: Bone028
+    2300060: Bone029
+    2300062: Bone031
+    2300064: Bone032
+    2300066: Bone033
+    2300068: Bone034
+    2300070: Bone035
+    2300072: Bone036
+    2300074: Bone037
+    2300076: Bone038
+    2300078: Bone039
+    2300080: Bone040
+    2300082: Bone043
+    2300084: Box004
+    2300086: Box006
+    2300088: Box007
+    2300090: Box008
+    2300092: Box009
+    2300094: Box010
+    2300096: Box011
+    2300098: Box012
+    2300100: Box013
+    2300102: Box014
+    2300104: Box015
+    2300106: Box016
+    2300108: Box017
+    2300110: Box018
+    2300112: Box019
+    2300114: Box020
+    2300116: Box021
+    2300118: Box022
+    2300120: Box023
+    2300122: Box024
+    2300124: Box025
+    2300126: Box026
+    2300128: Box027
+    2300130: Box028
+    2300132: Box029
+    2300134: Box030
+    2300136: Box031
+    2300138: Box032
+    2300140: Box033
+    2300142: Box034
+    2300144: //RootNode
+    2300146: Spider
+    2300148: Spider001
+    3300000: AbdomenA
+    3300002: AbdomenB
+    3300004: Bone001
+    3300006: Bone002
+    3300008: Bone003
+    3300010: Bone004
+    3300012: Bone005
+    3300014: Bone006
+    3300016: Bone007
+    3300018: Bone008
+    3300020: Bone009
+    3300022: Bone010
+    3300024: Bone011
+    3300026: Bone012
+    3300028: Bone013
+    3300030: Bone014
+    3300032: Bone015
+    3300034: Bone016
+    3300036: Bone017
+    3300038: Bone018
+    3300040: Bone019
+    3300042: Bone020
+    3300044: Bone021
+    3300046: Bone022
+    3300048: Bone023
+    3300050: Bone024
+    3300052: Bone025
+    3300054: Bone026
+    3300056: Bone027
+    3300058: Bone028
+    3300060: Bone029
+    3300062: Bone031
+    3300064: Bone032
+    3300066: Bone033
+    3300068: Bone034
+    3300070: Bone035
+    3300072: Bone036
+    3300074: Bone037
+    3300076: Bone038
+    3300078: Bone039
+    3300080: Bone040
+    3300082: Bone043
+    3300084: Box004
+    3300086: Box006
+    3300088: Box007
+    3300090: Box008
+    3300092: Box009
+    3300094: Box010
+    3300096: Box011
+    3300098: Box012
+    3300100: Box013
+    3300102: Box014
+    3300104: Box015
+    3300106: Box016
+    3300108: Box017
+    3300110: Box018
+    3300112: Box019
+    3300114: Box020
+    3300116: Box021
+    3300118: Box022
+    3300120: Box023
+    3300122: Box024
+    3300124: Box025
+    3300126: Box026
+    3300128: Box027
+    3300130: Box028
+    3300132: Box029
+    3300134: Box030
+    3300136: Box031
+    3300138: Box032
+    3300140: Box033
+    3300142: Box034
+    3300144: //RootNode
+    3300146: Spider
+    3300148: Spider001
+    4300000: DY_Spider_DavidD
+    4300002: Spider
+    4300004: Spider001
+    4300006: Bone031
+    4300008: Box026
+    4300010: Bone028
+    4300012: Box027
+    4300014: Bone029
+    4300016: Box028
+    4300018: Bone026
+    4300020: Bone025
+    4300022: Box023
+    4300024: Bone040
+    4300026: Bone027
+    4300028: Box024
+    4300030: Box025
+    4300032: Bone036
+    4300034: Box033
+    4300036: Bone037
+    4300038: Bone038
+    4300040: Box032
+    4300042: Bone039
+    4300044: Box034
+    4300046: Bone032
+    4300048: Box031
+    4300050: Bone035
+    4300052: Box029
+    4300054: Bone033
+    4300056: Box030
+    4300058: Bone034
+    4300060: Bone021
+    4300062: Bone022
+    4300064: Bone023
+    4300066: Bone024
+    4300068: Box020
+    4300070: Box021
+    4300072: Box022
+    4300074: Bone017
+    4300076: Bone018
+    4300078: Bone019
+    4300080: Bone020
+    4300082: Box017
+    4300084: Box018
+    4300086: Box019
+    4300088: Bone013
+    4300090: Bone014
+    4300092: Bone015
+    4300094: Bone016
+    4300096: Box014
+    4300098: Box015
+    4300100: Box016
+    4300102: Bone001
+    4300104: Bone002
+    4300106: Bone003
+    4300108: Bone004
+    4300110: Box007
+    4300112: Box006
+    4300114: Box004
+    4300116: Bone012
+    4300118: Bone009
+    4300120: Box011
+    4300122: Bone010
+    4300124: Box013
+    4300126: Bone011
+    4300128: Box012
+    4300130: Bone005
+    4300132: Bone006
+    4300134: Bone007
+    4300136: Bone008
+    4300138: Box010
+    4300140: Box009
+    4300142: Box008
+    4300144: AbdomenA
+    4300146: AbdomenB
+    4300148: Bone043
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Spider
+        weight: 1
+      - path: Spider/AbdomenA
+        weight: 1
+      - path: Spider/AbdomenA/AbdomenB
+        weight: 1
+      - path: Spider/AbdomenA/AbdomenB/Bone043
+        weight: 1
+      - path: Spider/Bone001
+        weight: 1
+      - path: Spider/Bone001/Bone002
+        weight: 1
+      - path: Spider/Bone001/Bone002/Bone003
+        weight: 1
+      - path: Spider/Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Spider/Bone001/Bone002/Bone003/Box007
+        weight: 1
+      - path: Spider/Bone001/Bone002/Box006
+        weight: 1
+      - path: Spider/Bone001/Box004
+        weight: 1
+      - path: Spider/Bone005
+        weight: 1
+      - path: Spider/Bone005/Bone006
+        weight: 1
+      - path: Spider/Bone005/Bone006/Bone007
+        weight: 1
+      - path: Spider/Bone005/Bone006/Bone007/Bone008
+        weight: 1
+      - path: Spider/Bone005/Bone006/Bone007/Box010
+        weight: 1
+      - path: Spider/Bone005/Bone006/Box009
+        weight: 1
+      - path: Spider/Bone005/Box008
+        weight: 1
+      - path: Spider/Bone012
+        weight: 1
+      - path: Spider/Bone012/Bone009
+        weight: 1
+      - path: Spider/Bone012/Bone009/Bone010
+        weight: 1
+      - path: Spider/Bone012/Bone009/Bone010/Bone011
+        weight: 1
+      - path: Spider/Bone012/Bone009/Bone010/Box013
+        weight: 1
+      - path: Spider/Bone012/Bone009/Box011
+        weight: 1
+      - path: Spider/Bone012/Box012
+        weight: 1
+      - path: Spider/Bone013
+        weight: 1
+      - path: Spider/Bone013/Bone014
+        weight: 1
+      - path: Spider/Bone013/Bone014/Bone015
+        weight: 1
+      - path: Spider/Bone013/Bone014/Bone015/Bone016
+        weight: 1
+      - path: Spider/Bone013/Bone014/Bone015/Box014
+        weight: 1
+      - path: Spider/Bone013/Bone014/Box015
+        weight: 1
+      - path: Spider/Bone013/Box016
+        weight: 1
+      - path: Spider/Bone017
+        weight: 1
+      - path: Spider/Bone017/Bone018
+        weight: 1
+      - path: Spider/Bone017/Bone018/Bone019
+        weight: 1
+      - path: Spider/Bone017/Bone018/Bone019/Bone020
+        weight: 1
+      - path: Spider/Bone017/Bone018/Bone019/Box017
+        weight: 1
+      - path: Spider/Bone017/Bone018/Box018
+        weight: 1
+      - path: Spider/Bone017/Box019
+        weight: 1
+      - path: Spider/Bone021
+        weight: 1
+      - path: Spider/Bone021/Bone022
+        weight: 1
+      - path: Spider/Bone021/Bone022/Bone023
+        weight: 1
+      - path: Spider/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Spider/Bone021/Bone022/Bone023/Box020
+        weight: 1
+      - path: Spider/Bone021/Bone022/Box021
+        weight: 1
+      - path: Spider/Bone021/Box022
+        weight: 1
+      - path: Spider/Bone026
+        weight: 1
+      - path: Spider/Bone026/Bone025
+        weight: 1
+      - path: Spider/Bone026/Bone025/Bone040
+        weight: 1
+      - path: Spider/Bone026/Bone025/Bone040/Bone027
+        weight: 1
+      - path: Spider/Bone026/Bone025/Bone040/Box024
+        weight: 1
+      - path: Spider/Bone026/Bone025/Box023
+        weight: 1
+      - path: Spider/Bone026/Box025
+        weight: 1
+      - path: Spider/Bone031
+        weight: 1
+      - path: Spider/Bone031/Bone030
+        weight: 1
+      - path: Spider/Bone031/Bone030/Bone028
+        weight: 1
+      - path: Spider/Bone031/Bone030/Bone028/Bone029
+        weight: 1
+      - path: Spider/Bone031/Bone030/Bone028/Box027
+        weight: 1
+      - path: Spider/Bone031/Bone030/Box028
+        weight: 1
+      - path: Spider/Bone031/Box026
+        weight: 1
+      - path: Spider/Bone032
+        weight: 1
+      - path: Spider/Bone032/Bone035
+        weight: 1
+      - path: Spider/Bone032/Bone035/Bone033
+        weight: 1
+      - path: Spider/Bone032/Bone035/Bone033/Bone034
+        weight: 1
+      - path: Spider/Bone032/Bone035/Bone033/Box030
+        weight: 1
+      - path: Spider/Bone032/Bone035/Box029
+        weight: 1
+      - path: Spider/Bone032/Box031
+        weight: 1
+      - path: Spider/Bone036
+        weight: 1
+      - path: Spider/Bone036/Bone037
+        weight: 1
+      - path: Spider/Bone036/Bone037/Bone038
+        weight: 1
+      - path: Spider/Bone036/Bone037/Bone038/Bone039
+        weight: 1
+      - path: Spider/Bone036/Bone037/Bone038/Box032
+        weight: 1
+      - path: Spider/Bone036/Bone037/Box034
+        weight: 1
+      - path: Spider/Bone036/Box033
+        weight: 1
+      - path: Spider/IK Chain003
+        weight: 1
+      - path: Spider/Spider001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
