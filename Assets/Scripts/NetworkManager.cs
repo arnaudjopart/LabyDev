@@ -57,14 +57,22 @@ public class NetworkManager : MonoBehaviour
                     Send( 1, GetBytes( m_FpsLocal.transform.position ) );
                     Send( 6, GetBytes( m_FpsLocal.transform.rotation ) );
                 }
+                else
+                {
+                    SendPing();
+                }
 
                 Receive();
             }
             catch
             {
                 m_IsConnected = false;
-                SceneManager.LoadScene( 0 );
-                m_gameManager.m_uiCanvas.LoadNewSMS( "No network :/" );
+                m_showConnect = false;
+
+                if (!m_IsServer)
+                    SceneManager.LoadScene( 1 );
+
+                m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
             }
         }
 	}
@@ -275,6 +283,11 @@ public class NetworkManager : MonoBehaviour
     public void RequestMapInfo()
     {
         Send( 8, new byte[] { 0 } );
+    }
+
+    public void SendPing()
+    {
+        Send( 9, new byte[] { 0 } );
     }
     #endregion
 
