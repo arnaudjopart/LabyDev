@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadGameOverScene()
     {
-        SceneManager.LoadScene( 2 );
+        SceneManager.LoadScene( 3 );
     }
     #endregion
 
