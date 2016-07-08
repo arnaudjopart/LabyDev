@@ -73,6 +73,14 @@ public class NetworkManager : MonoBehaviour
                     SceneManager.LoadScene( 1 );
 
                 m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
+
+                if( m_IsServer )
+                {
+                    ResetNetwork();
+                    m_IsServer = true;
+
+                    InitServer();
+                }
             }
         }
 	}
@@ -90,11 +98,7 @@ public class NetworkManager : MonoBehaviour
         m_socket.Bind( localEndPoint );
 
         m_socket.Listen( 100 );
-
-        m_gameManager.m_uiCanvas.LoadNewSMS( "Server Started" );
-
-        InitFpsPlayer();
-
+        
         m_socket.BeginAccept( new AsyncCallback( AcceptCallback ),
                     m_socket );
     }
@@ -377,6 +381,8 @@ public class NetworkManager : MonoBehaviour
         m_IsServer = true;
 
         InitServer();
+        m_gameManager.m_uiCanvas.LoadNewSMS( "Server Started" );
+        InitFpsPlayer();
     }
 
     private void ResetNetwork()
