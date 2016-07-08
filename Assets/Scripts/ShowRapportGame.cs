@@ -33,24 +33,24 @@ public class ShowRapportGame : MonoBehaviour {
     #region Utils
     private void ShowRapport()
     {
-        m_rapportPlayer1UI.text = m_deathPlayer1 ? "est mort dans le labyrhinte :( !!!" : "est sorti du labyrhinte en entier :D !!!";
-        m_rapportPlayer2UI.text = m_objectivePlayer2 ? "devait sauver le player 1" : "devait tuer le player 1 ";
+        m_rapportPlayer1UI.text = m_deathPlayer1 ? "Died in the maze !" : "is Alive :)";
+        m_rapportPlayer2UI.text = m_objectivePlayer2 ? "Had to save Player 1" : "Had to kill Player 1";
 
         if( !m_deathPlayer1 && !m_objectivePlayer2 )
         {
-            m_rapportUI.text = "Player 1 gagne !!!";
+            m_rapportUI.text = "Player 1 won !";
         }
         if( m_deathPlayer1 && m_objectivePlayer2 )
         {
-            m_rapportUI.text = "Les joueurs ont perdu !!!";
+            m_rapportUI.text = "All Players lose !";
         }
         if( !m_deathPlayer1 && m_objectivePlayer2 )
         {
-            m_rapportUI.text = "Les joueurs ont gagné !!!";
+            m_rapportUI.text = "All Players win !";
         }
         if( m_deathPlayer1 && !m_objectivePlayer2 )
         {
-            m_rapportUI.text = "Player 2 gagne !!!";
+            m_rapportUI.text = "Player 1 won !";
         }
     }
     #endregion

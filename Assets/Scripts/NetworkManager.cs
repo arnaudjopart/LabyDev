@@ -115,7 +115,7 @@ public class NetworkManager : MonoBehaviour
 
     private void InitFpsPlayer()
     {
-        m_msgconnection.text = "Staring Server ...";
+        m_msgconnection.text = "Starting Server ...";
         StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
     }
     #endregion
@@ -212,7 +212,7 @@ public class NetworkManager : MonoBehaviour
         if ( _packet[ 0 ] == 3 ) //objectif state
         {
             GameManager.m_player2Objective = _packet[ 1 ];
-            m_gameManager.m_uiCanvas.LoadNewSMS( "objectif changed : " + GameManager.m_player2Objective );
+            //m_gameManager.m_uiCanvas.LoadNewSMS( "objectif changed : " + GameManager.m_player2Objective );
         }
         else
         if( _packet[ 0 ] == 4 ) //Player VR is dead
