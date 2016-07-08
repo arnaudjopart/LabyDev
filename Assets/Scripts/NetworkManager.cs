@@ -42,11 +42,11 @@ public class NetworkManager : MonoBehaviour
 
     void Update ()
     {
-        if (m_IsConnected && m_socket.Connected)
+        if (m_IsConnected)
         {
             try
             {
-                if( !m_showConnect )
+                if (!m_showConnect)
                 {
                     m_gameManager.m_uiCanvas.LoadNewSMS( "Jack join !" );
                     m_showConnect = true;
@@ -63,32 +63,38 @@ public class NetworkManager : MonoBehaviour
                 }
 
                 Receive();
+
+                if( !m_socket.Connected )
+                    Close();
             }
             catch
             {
-                m_IsConnected = false;
-            }
-        }
-        else
-        {
-            m_showConnect = false;
-
-            if( !m_IsServer )
-                SceneManager.LoadScene( 1 );
-
-            m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
-
-            if( m_IsServer )
-            {
-                ResetNetwork();
-                m_IsServer = true;
-
-                InitServer();
+                Close();
             }
         }
 	}
     
     #region Utils Server
+
+    private void Close()
+    {
+        m_IsConnected = false;
+        m_showConnect = false;
+
+        if( !m_IsServer )
+            SceneManager.LoadScene( 1 );
+
+        m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
+
+        if( m_IsServer )
+        {
+            ResetNetwork();
+            m_IsServer = true;
+
+            InitServer();
+        }
+    }
+
     private void InitServer()
     {
         IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 7777);
