@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     public static bool m_player1Win;
     public static bool IsGameOver = false;
     public int m_gameTimeInSeconds;
-    public static int m_player2Objective; 
-    
+    public static int m_player2Objective;
+
     public UICanvas m_uiCanvas;
     public NetworkManager m_networkManager;
 
@@ -22,38 +22,36 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if ( !s_instance )
+        if( !s_instance )
         {
             s_instance = this;
         }
     }
-    
+
     public static void GameOver()
     {
-        IsGameOver = true;
-
-        Debug.Log( "GameOver" );
-        
         if( Global.Server )
         {
-            if(!m_player1Win )
-            {
+            if( !m_player1Win )
                 SoundScript.PlayDeathSound();
-            }
-            
-            GameManager.s_instance.m_networkManager.SendGameOver();
+
+            NetworkManager.m_instance.SendObjectif( GameManager.m_player2Objective );
+            NetworkManager.m_instance.SendGameOver();
         }
+    }
 
-        //NetworkManager.m_instance.CloseSocket();
-
-        GameManager.s_instance.Invoke( "LoadGameOverScene", 1.5f );        
+    public static void GoGameOverScene()
+    {
+        Debug.Log( "GameOver" );
+        IsGameOver = true;
+        GameManager.s_instance.Invoke( "LoadGameOverScene", 0.5f );
     }
 
     void Start()
     {
         IsGameOver = false;
 
-        if (!Global.Server)
+        if( !Global.Server )
         {
             m_player2Objective = Random.Range( 0, 2 );
             StartCoroutine( But() );
@@ -74,7 +72,7 @@ public class GameManager : MonoBehaviour
     IEnumerator But()
     {
         yield return new WaitForSeconds( Random.Range( 30, 80 ) );
-        if ( m_player2Objective == 0 )
+        if( m_player2Objective == 0 )
         {
             m_player2Objective = 1;
         }
@@ -98,6 +96,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadGameOverScene()
     {
+        NetworkManager.m_instance.close();
         SceneManager.LoadScene( 3 );
     }
     #endregion

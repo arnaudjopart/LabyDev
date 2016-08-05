@@ -13,17 +13,19 @@ public class NetworkManager : MonoBehaviour
 
     public GameObject m_ConnectionFrame;
     public GameObject m_UIGSM;
-    
+
     public GameObject m_prefabFpsLocal;
     public GameObject m_prefabFpsIcon;
     public GameObject m_prefabMonitor;
-    
+
     public bool m_IsServer;
     public bool m_IsConnected;
     public string m_Ip;
 
     public GameManager m_gameManager;
     public InitiateMapManager m_mapManager;
+
+    public Transform m_CamTransform;
 
     void Start()
     {
@@ -33,6 +35,10 @@ public class NetworkManager : MonoBehaviour
 
         StartClient( Global.Ip );
     }
+
+    Vector3 lastPosSended;
+    Quaternion lastRotSended;
+    int lastObjectifSend;
 
     void Update()
     {
@@ -44,21 +50,38 @@ public class NetworkManager : MonoBehaviour
 
                 if( m_IsServer )
                 {
-                    Send( 1, GetBytes( m_FpsLocal.transform.position ) );
-                    Send( 6, GetBytes( m_FpsLocal.transform.rotation ) );
+                    if( !GameManager.IsGameOver )
+                    {
+                        if( m_CamTransform.position != lastPosSended )
+                        {
+                            lastPosSended = m_CamTransform.position;
+                            Send( 1, GetBytes( lastPosSended ) );
+                        }
+
+                        if( m_CamTransform.rotation != lastRotSended )
+                        {
+                            lastRotSended = m_CamTransform.rotation;
+                            Send( 6, GetBytes( lastRotSended ) );
+                        }
+                    }
                 }
                 else
-                    SendObjectif( GameManager.m_player2Objective );
-
+                {
+                    if( lastObjectifSend != GameManager.m_player2Objective )
+                    {
+                        lastObjectifSend = GameManager.m_player2Objective;
+                        SendObjectif( lastObjectifSend );
+                    }
+                }
             }
-            catch (Exception _e)
+            catch( Exception _e )
             {
-                close();
-                SceneManager.LoadScene( 1 );
+                //close();
+                //SceneManager.LoadScene( 1 );
             }
         }
     }
-    
+
     private void Receive()
     {
         while( m_socket.Available > 0 )
@@ -70,7 +93,7 @@ public class NetworkManager : MonoBehaviour
                     byte[] data = new byte[m_lenghtPacket];
                     m_socket.Receive( data );
 
-                    if ( data.Length > 0)
+                    if( data.Length > 0 )
                         ProcessPacket( data );
 
                     m_lenghtPacket = -1;
@@ -89,7 +112,7 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    private void ProcessPacket( byte[] _packet )
+    private void ProcessPacket(byte[] _packet)
     {
         if( _packet[ 0 ] == 1 ) //FPS Pos
         {
@@ -114,8 +137,10 @@ public class NetworkManager : MonoBehaviour
         else
         if( _packet[ 0 ] == 4 ) //Player VR is dead
         {
-            GameManager.GameOver();
-            close();
+            if( !m_IsServer )
+                SendGameOver();
+
+            GameManager.GoGameOverScene();
         }
         else
         if( _packet[ 0 ] == 5 ) //Set Color Rooms
@@ -141,11 +166,14 @@ public class NetworkManager : MonoBehaviour
 
             for( int i = 0; i < m_mapManager.m_rooms.Count; i++ )
                 SendTypeRoom( i, (int)m_mapManager.m_rooms[ i ].RoomType );
+
+            Send( 1, GetBytes( lastPosSended ) );
+            Send( 6, GetBytes( lastRotSended ) );
         }
         else
         if( _packet[ 0 ] == 15 ) //Linked pLayer Gone
         {
-            if (m_IsServer)
+            if( m_IsServer )
                 m_gameManager.m_uiCanvas.LoadNewSMS( "Jack is gone :/" );
             else
             {
@@ -180,8 +208,8 @@ public class NetworkManager : MonoBehaviour
             if( m_socket.Connected )
             {
                 Debug.Log( "Connected" );
-                
-                if ( m_IsServer )
+
+                if( m_IsServer )
                 {
                     StartCoroutine( "WaitAndRemoveUIConnection", 1.0F );
                 }
@@ -206,7 +234,7 @@ public class NetworkManager : MonoBehaviour
     }
 
     #region Send
-    private void Send( byte Id, byte[] _data )
+    private void Send(byte Id, byte[] _data)
     {
         if( m_IsConnected )
         {
@@ -216,12 +244,12 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
-    public void SendSms( string _sms )
+    public void SendSms(string _sms)
     {
         Send( 2, Encoding.ASCII.GetBytes( _sms ) );
     }
 
-    public void SendObjectif( int _objectif )
+    public void SendObjectif(int _objectif)
     {
         Send( 3, new byte[] { (byte)_objectif } );
     }
@@ -229,7 +257,6 @@ public class NetworkManager : MonoBehaviour
     public void SendGameOver()
     {
         Send( 4, new byte[] { 0 } );
-        close();
     }
 
     public void close()
@@ -239,7 +266,7 @@ public class NetworkManager : MonoBehaviour
         m_lenghtPacket = -1;
     }
 
-    public void SendTypeRoom( int _room, int _type )
+    public void SendTypeRoom(int _room, int _type)
     {
         Send( 5, new byte[] { (byte)_room, (byte)_type } );
     }
@@ -256,7 +283,7 @@ public class NetworkManager : MonoBehaviour
     #endregion
 
     #region Utils
-    private static byte[] AddPacket( byte[] _packet1, byte[] _packet2 )
+    private static byte[] AddPacket(byte[] _packet1, byte[] _packet2)
     {
         byte[] result = new byte[_packet1.Length + _packet2.Length];
 
@@ -266,24 +293,24 @@ public class NetworkManager : MonoBehaviour
         return result;
     }
 
-    private static byte[] SubPacket( byte[] _packet, int _index, int _length )
+    private static byte[] SubPacket(byte[] _packet, int _index, int _length)
     {
         byte[] result = new byte[_length];
         Array.Copy( _packet, _index, result, 0, _length );
         return result;
     }
 
-    private static byte[] GetBytes( float _value )
+    private static byte[] GetBytes(float _value)
     {
         return BitConverter.GetBytes( _value );
     }
 
-    private static float GetFloat( byte[] _value )
+    private static float GetFloat(byte[] _value)
     {
         return System.BitConverter.ToSingle( _value, 0 );
     }
 
-    private static byte[] GetBytes( Vector3 _value )
+    private static byte[] GetBytes(Vector3 _value)
     {
         byte[] result = new byte[12];
 
@@ -294,7 +321,7 @@ public class NetworkManager : MonoBehaviour
         return result;
     }
 
-    private static byte[] GetBytes( Quaternion _value )
+    private static byte[] GetBytes(Quaternion _value)
     {
         byte[] result = new byte[16];
 
@@ -306,7 +333,7 @@ public class NetworkManager : MonoBehaviour
         return result;
     }
 
-    private static Vector3 GetVector3( byte[] _value )
+    private static Vector3 GetVector3(byte[] _value)
     {
         float x = GetFloat( SubPacket( _value, 0, 4 ));
         float y = GetFloat( SubPacket( _value, 4, 4 ));
@@ -315,7 +342,7 @@ public class NetworkManager : MonoBehaviour
         return new Vector3( x, y, z );
     }
 
-    private static Quaternion GetQuaternion( byte[] _value )
+    private static Quaternion GetQuaternion(byte[] _value)
     {
         float x = GetFloat( SubPacket( _value, 0, 4 ));
         float y = GetFloat( SubPacket( _value, 4, 4 ));
@@ -326,7 +353,7 @@ public class NetworkManager : MonoBehaviour
     }
     #endregion
 
-    private IEnumerator WaitAndRemoveUIConnection( float _waitTime )
+    private IEnumerator WaitAndRemoveUIConnection(float _waitTime)
     {
         yield return new WaitForSeconds( _waitTime );
         m_ConnectionFrame.SetActive( false );
@@ -336,12 +363,13 @@ public class NetworkManager : MonoBehaviour
             m_FpsLocal = (GameObject)Instantiate( m_prefabFpsLocal, Global.playerSpawnPosition, Quaternion.identity );
             m_IsConnected = true;
             Send( 22, new byte[] { 1 } );
+            m_CamTransform = Camera.main.GetComponent<Transform>();
         }
     }
 
     private Socket m_socket;
     private int m_lenghtPacket;
-    
+
     private GameObject m_FpsLocal;
     private GameObject m_FpsIcon;
     private GameObject m_Monitor;
